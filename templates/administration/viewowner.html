@@ -9,24 +9,22 @@
     <table border="1">
         <tr>
             <th>Name</th>
-            <th>Username</th>
-            <th>Password</th>
             <th>Age</th>
             <th>Gender</th>
             <th>Contact number</th>
             <th>Email</th>
             <th></th>
         </tr>
+        {% for i in val %}
         <tr>
-            <td> </td>
-            <td> </td>
-            <td> </td>
-            <td> </td>
-            <td> </td>
-            <td> </td>
-            <td> </td>
+            <td>{{ i.Name }}</td>
+            <td>{{ i.Age}}</td>
+            <td> {{i.Gender}} </td>
+            <td>{{i.Contact_NO }}  </td>
+            <td>{{i.Email}}  </td>
             <td> <input type="submit" value="Approve"><br><input type="submit" value="Reject"></td>
         </tr>
+        {% endfor %}
     </table>
 </body>
 </html>

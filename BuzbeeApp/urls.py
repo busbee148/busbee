@@ -21,6 +21,7 @@ from django.urls import path
 from BuzbeeApp.views import *
 urlpatterns = [
     path('', LoginPage.as_view(), name="LoginPage"),
+    path('', LoginPage.as_view(), name="LoginPage"),
 
     # ///////////////////////////////////// ADMIN //////////////////////////////////////////
     path('AdminHome',AdminHome.as_view(),name="AdminHome"),
@@ -32,7 +33,7 @@ urlpatterns = [
     path('AddBusStop',AddBusStop.as_view(), name="AddBusStop"),
     path('ApproveBusDetails',ApproveBusDetails.as_view(), name="ApproveBusDetails"),
     path('BlockBus',BlockBus.as_view(),name="BlockBus"),
-    path('EditBus',EditBus.as_view(),name="EditBus"),
+    path('EditBusDriver',EditBusDriver.as_view(),name="EditBusDriver"),
     path('FeedBack',FeedBack.as_view(),name="FeedBack"),
     path('ManageOwner',ManageOwner.as_view(),name="ManageOwner"),
     path('ManageOwner1',ManageOwner1.as_view(),name="ManageOwner1"),

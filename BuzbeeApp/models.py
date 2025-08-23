@@ -56,7 +56,7 @@ class BusRouteTable(models.Model):
     Route_ID = models.CharField(max_length=10,blank=True,null=True)
     Source = models.CharField(max_length=30,blank=True,null=True)
     Destination = models.CharField(max_length=30,blank=True,null=True)
-
+    
 class BusStopTable(models.Model):
     Stop_name = models.CharField(max_length=30,blank=True,null=True)
     Landmark = models.CharField(max_length=30,blank=True,null=True)
@@ -111,4 +111,4 @@ class WalletTable(models.Model):
     Amount = models.FloatField()
     Debit = models.FloatField()
 
- 
+     

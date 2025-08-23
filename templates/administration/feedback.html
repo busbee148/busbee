@@ -9,8 +9,15 @@
   <table border="1">
     <tr>
         <th>Username</th>
-        <th>Bus Route</th>
+        <th>Bus number</th>
         <th>feedback</th>
+    </tr>
+    <tr>
+      {% for i in val %}
+      <td>{{i.USER.Name}}</td>
+      <td>{{i.BUS.Bus_NO}}</td>
+      <td>{{i.Feedback}}</td>
+      {% endfor %}
     </tr>
   </table>  
 </body>

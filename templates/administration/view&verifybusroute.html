@@ -12,11 +12,13 @@
              <th>Route ID</th>
               <th> </th>
         </tr>
+        {% for i in val %}
         <tr>
-             <th></th>
-             <th></th>
+             <td>{{i.BUS.Bus_NO}}</td>
+             <td>{{i.ROUTE.Route_ID}}</td>
             <td><input type="submit" value="Approve"><br><input type="submit" value="Reject"></td>
         </tr>
+        {% endfor %}
     </table>
 </body>
 </html>

@@ -1,4 +1,5 @@
-from django.shortcuts import render
+
+from django.shortcuts import render, HttpResponse
 from django.views import View
 
 from BuzbeeApp.models import *
@@ -9,13 +10,13 @@ class LoginPage(View):
     def get(self, request):
         return render(request, "administration/login.html")
     def post(self,request):
-        username = request.POST['Username']
-        password = request.POST['Password']
+        Username = request.POST['Username']
+        Password = request.POST['Password'] 
         try:
-            user=LoginTable.objects.get(Username=username,Password=password)
+            user=LoginTable.objects.get(Username=Username,Password=Password)
             request.session['login id'] = user.id
-            if user.UserType=='administration':
-                return render(request,'administration/AdminHome.html')
+            if user.UserType=='admin':
+                return HttpResponse('''<script>alert('welcome back');window.location='/AdminHome'</script>''')
             elif user.UserType=='owner':
                 return render(request,'owner/OwnerHome')
             elif user.UserType=='busdriver':
@@ -58,19 +59,22 @@ class AddBusStop(View):
     
 class ApproveBusDetails(View):
     def get(self,request):
-        return render(request,"administration/approvebusdetails.html") 
+        obj=BusTable.objects.all()
+        return render(request,"administration/approvebusdetails.html",{'val':obj}) 
 
 class BlockBus(View):
     def get(self,request):
-        return render(request,"administration/blockbus.html") 
+        obj=BusTable.objects.all()
+        return render(request,"administration/blockbus.html",{'val':obj}) 
 
-class EditBus(View):
+class EditBusDriver(View):
     def get(self,request):
-        return render(request,"administration/editbus.html") 
+        return render(request,"administration/editbusdriver.html") 
     
 class FeedBack(View):
     def get(self,request):
-        return render(request,"administration/feedback.html") 
+        obj=FeedbackTable.objects.all()
+        return render(request,"administration/feedback.html",{'val':obj}) 
     
 class ManageOwner(View):
     def get(self,request):
@@ -82,19 +86,24 @@ class ManageOwner1(View):
     
 class VVBR(View):
     def get(self,request):
-        return render(request,"administration/view&verifybusroute.html")   
+        obj=AssignBusRouteTable.objects.all()
+        return render(request,"administration/view&verifybusroute.html",{'val':obj})   
     
 class ViewBusDriver(View):
     def get(self,request):
-        return render(request,"administration/viewbusdriver.html") 
+        obj=DriverTable.objects.all()
+        return render(request,"administration/viewbusdriver.html",{'val':obj}) 
     
 class ViewComplaint(View):
     def get(self,request):
-        return render(request,"administration/viewcomplaint.html") 
+        obj=ComplaintTable.objects.all()
+        return render(request,"administration/viewcomplaint.html",{'val': obj}) 
     
 class ViewOwner(View):
     def get(self,request):
-        return render(request,"administration/viewowner.html") 
+        obj = OwnerTable.objects.all()
+        return render(request,"administration/viewowner.html", {'val': obj}) 
+    
 # ///////////////////////////////////////////////// BUSDRIVER    ///////////////////////////////////
 #     
 class TripStatus(View):
@@ -136,3 +145,8 @@ class ViewBusRoute(View):
 class ViewConducter(View):
     def get(self,request):
         return render(request,"owner/viewconducter.html") 
+    
+
+class LogoutView(View):
+    def get(self, request):
+        return HttpResponse('''<script>alert('Logout successfully');window.location='/'</script>''')

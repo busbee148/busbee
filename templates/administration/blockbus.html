@@ -17,13 +17,15 @@
             <th></th>
         </tr>
         <tr>
-            <td> </td>
-            <td> </td>
-            <td> </td>
-            <td> </td>
-            <td> </td>
-            <td> </td>
+            {% for i in val %}
+            <td> {{i.Busname}}</td>
+            <td>{{i.Bus_NO}} </td>
+            <td> {{i.Capacity}}</td>
+            <td>{{i.GPS_ID}} </td>
+            <td> {{i.RC_NO}}</td>
+            <td> {{i.Photo}}</td>
             <td> <input type="radio" name="status"  value="Block">Block <br> <input type="radio" name="status" value="Unblock" >Unblock</td>
+            {% endfor %}
         </tr>
     </table>
 </body>

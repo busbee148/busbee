@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit bus driver</title>
+</head>
+<body>
+    
+    <form method="post">
+        {% csrf_token %}
+             <h2><center>Edit Bus Driver</center></h2>
+    <table>
+            <tr>
+                <td>Driver name:</td>
+                <td><input type="text" name="Driver name"></td>
+            </tr>
+            <tr>
+                <td>Username:</td>
+                <td><input type="text" name="Username"></td>
+            </tr>
+            <tr>
+                <td>Password:</td>
+                <td><input type="password" name="password"></td>
+            </tr>
+            <tr>
+                <td>Licence Number:</td>
+                <td><input type="text" name="Licence Number"></td>
+            </tr>
+            <tr>
+                <td>Age</td>
+                <td><input type="text" size="2" name="Age"></td>
+                <td>Gender</td>
+                <td><input type="radio" name="gender" value="F" >F<input type="radio"name="gender" value="M">M</td>
+            </tr>
+            <tr>
+                <td>ContactNo:</td>
+                <td><input type="text" name="ContactNo"></td>
+            </tr>
+            <tr>
+                <td>Address:</td>
+                <td><textarea name="Address"></textarea></td>
+            </tr>
+            <tr>
+                <td>Status</td>
+                <td><select name="Status">
+                    <option value="Active">Active</option>
+                    <option value="Inactive">Inactive</option>
+                </select></td>
+            </tr>
+            <tr ><td align="center" colspan="2">
+                <input type="submit" name="Edit" value="Edit"></td>
+            </tr>
+    </table>
+    </form>
+</body>
+</html>

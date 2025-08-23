@@ -6,22 +6,25 @@
     <title>Addbusroute</title>
 </head>
 <body>
+     <form method="post">
+        {% csrf_token %}
     <table>
         <tr>
             <td>Route ID:</td>
-            <td><input type="text"></td>
+            <td><input type="text" name="Route ID"></td>
         </tr>
         <tr>
             <td>Source:</td>
-            <td><input type="text"></td>
+            <td><input type="text" name="Source"></td>
         </tr>
         <tr>
             <td>Destination:</td>
-            <td><input type="text"></td>
+            <td><input type="text" name="Destination"></td>
         </tr> 
         <tr>
             <td align="center" colspan="3"><input type="submit" value="ADD"></td>
         </tr>
     </table>
+    </form>
 </body>
 </html>

@@ -16,15 +16,17 @@
             <th>Photo</th>
             <th></th>
         </tr>
+        {% for i in val %}
         <tr>
-            <td> </td>
-            <td> </td>
-            <td> </td>
-            <td> </td>
-            <td> </td>
-            <td> </td>
+            <td>{{i.Busname}}</td>
+            <td>{{i.Bus_NO}}</td>
+            <td>{{i.Capacity}} </td>
+             <td> </td>
+            <td> {{i.RC_NO}}</td>
+            <td> {{i.Photo}}</td>
             <td> <input type="submit" value="Approve"><br><input type="submit" value="Reject"></td>
         </tr>
+        {% endfor %}
     </table>
 </body>
 </html>

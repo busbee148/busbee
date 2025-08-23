@@ -6,26 +6,23 @@
     <title>Complaint</title>
 </head>
 <body>
-    <table>
+    <table border="1">
         <tr>
-            <td>Username:</td>
-            <td><input type="text"></td>
+            <th>Username</th>
+            <th>Bus NO</th>
+            <th>Complaint</th>
+            <th>Replay</th>
+            <th> </th>
         </tr>
+         {% for i in val %}
         <tr>
-            <td>Bus Route:</td>
-            <td><input type="text"></td>
+             <td>{{i.USER.Name}}</td>
+             <td>{{i.BUS.Bus_NO}}</td>
+             <td>{{i.Complaint}}</td>
+             <td>{{i.Reply}}</td>
+             <td align="center" colspan="2"><input type="submit" value="send"></td>
         </tr>
-        <tr>
-            <td>Complaint:</td>
-            <td><textarea></textarea></td>
-        </tr>
-        <tr>
-            <td>Replay:</td>
-            <td><textarea></textarea></td>
-        </tr>
-        <tr>
-            <td align="center" colspan="2"><input type="submit" value="send"></td>
-        </tr>
+         {% endfor %}
     </table>
 </body>
 </html>

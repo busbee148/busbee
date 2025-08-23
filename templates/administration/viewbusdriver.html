@@ -9,8 +9,6 @@
     <table border="1">
         <tr>
             <th>Name</th>
-            <th>Username</th>
-            <th>Password</th>
             <th>Licence number</th>
             <th>Age</th>
             <th>Gender</th>
@@ -20,17 +18,19 @@
             <th></th>
         </tr>
         <tr>
-            <td> </td>
-            <td> </td>
-            <td> </td>
-            <td> </td>
-            <td> </td>
-            <td> </td>
-            <td> </td>
-            <td> </td>
-            <td> </td>
-            <td> <input type="submit" value="Edit"><br><input type="submit" value="Delete"></td>
+            {% for i in val %}
+            <td>{{i.Driver_Name}} </td>
+            <td> {{i.Licence_NO}}</td>
+            <td> {{i.Age}}</td>
+            <td>{{i.Gender}} </td>
+            <td> {{i.Contact_NO}}</td>
+            <td>{{i.Address}} </td>
+            <td>{{i.Status}} </td>
+            <td>
+                <a href="/EditBusDriver">Edit</a> 
+                <input type="submit" value="Delete"></td>
         </tr>
+        {% endfor %}
     </table>
 </body>
 </html>
