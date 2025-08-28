@@ -21,11 +21,12 @@ from django.urls import path
 from BuzbeeApp.views import *
 urlpatterns = [
     path('', LoginPage.as_view(), name="LoginPage"),
-    path('', LoginPage.as_view(), name="LoginPage"),
 
     # ///////////////////////////////////// ADMIN //////////////////////////////////////////
     path('AdminHome',AdminHome.as_view(),name="AdminHome"),
     path('OwnerHome',OwnerHome.as_view(),name="OwnerHome"),
+    path('OwnerRegistration',OwnerRegistration.as_view(),name="OwnerRegistration"),
+    path('DriverRegister',DriverRegister.as_view(),name="DriverRegister"),
     path('DriverHome',DriverHome.as_view(),name="DriverHome"),
     path('ConducterHome',ConducterHome.as_view(),name="ConducterHome"),
     path('AddBusDriver',AddBusDriver.as_view(), name="AddBusDriver"),
@@ -33,6 +34,8 @@ urlpatterns = [
     path('AddBusStop',AddBusStop.as_view(), name="AddBusStop"),
     path('ApproveBusDetails',ApproveBusDetails.as_view(), name="ApproveBusDetails"),
     path('BlockBus',BlockBus.as_view(),name="BlockBus"),
+    path('BlockBuss/<int:lid>',BlockBuss.as_view(),name='BlockBuss'),
+    path('UnblockBus/<int:lid>',UnblockBus.as_view(),name='UnblockBus'),
     path('EditBusDriver',EditBusDriver.as_view(),name="EditBusDriver"),
     path('FeedBack',FeedBack.as_view(),name="FeedBack"),
     path('ManageOwner',ManageOwner.as_view(),name="ManageOwner"),
@@ -41,7 +44,9 @@ urlpatterns = [
     path('ViewBusDriver',ViewBusDriver.as_view(),name="ViewBusDriver"),
     path('ViewComplaint',ViewComplaint.as_view(),name="ViewComplaint"),
     path('ViewOwner',ViewOwner.as_view(),name="ViewOwner"),
-
+    path('ApproveOwner/<int:lid>',ApproveOwner.as_view(),name="ApproveOwner"),
+    path('RejectOwner/<int:lid>',RejectOwner.as_view(),name="RejectOwner"),
+    
     # //////////////////////////////////  BUSDRIVER ///////////////////////////////////////////////
 
     path('TripStatus',TripStatus.as_view(),name="TripStatus"),
@@ -51,7 +56,7 @@ urlpatterns = [
     
     #//////////////////////////////////////////  OWNER  ////////////////////////////////////////// 
     path('AddBus',AddBus.as_view(),name="AddBus"),
-    path('Register',Register.as_view(),name="Register"),
+    # path('Register',Register.as_view(),name="Register"),
     path('TrackBus',TrackBus.as_view(),name="TrackBus"),
     path('ViewBus',ViewBus.as_view(),name="ViewBus"),
     path('ViewBusDrivers',ViewBusDrivers.as_view(),name="ViewBusDrivers"),

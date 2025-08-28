@@ -22,9 +22,18 @@
             <td> {{i.Gender}} </td>
             <td>{{i.Contact_NO }}  </td>
             <td>{{i.Email}}  </td>
-            <td> <input type="submit" value="Approve"><br><input type="submit" value="Reject"></td>
+        <td>
+            {% if i.LOGIN.UserType == "pending" %}
+                <a href="/ApproveOwner/{{i.id}}">Approve</a>
+                <a href="/RejectOwner/{{i.id}}">Reject</a>
+            {% elif i.LOGIN.UserType == "Owner"%} 
+                <a href="/RejectOwner/{{i.id}}">Reject</a>
+            {% elif i.LOGIN.UserType == "Rejected"%} 
+                <a href="/ApproveOwner/{{i.id}}">Approve</a>
+            {% endif %}
+        </td>
         </tr>
-        {% endfor %}
+                {% endfor %}
     </table>
 </body>
 </html>

@@ -14,19 +14,25 @@
             <th>GPS ID</th>
             <th>RC Number</th>
             <th>Photo</th>
-            <th></th>
+            <th>Action</th>
         </tr>
+        {% for i in val %}
         <tr>
-            {% for i in val %}
-            <td> {{i.Busname}}</td>
-            <td>{{i.Bus_NO}} </td>
-            <td> {{i.Capacity}}</td>
-            <td>{{i.GPS_ID}} </td>
-            <td> {{i.RC_NO}}</td>
-            <td> {{i.Photo}}</td>
-            <td> <input type="radio" name="status"  value="Block">Block <br> <input type="radio" name="status" value="Unblock" >Unblock</td>
-            {% endfor %}
+            <td>{{ i.Busname }}</td>
+            <td>{{ i.Bus_NO }}</td>
+            <td>{{ i.Capacity }}</td>
+            <td>{{ i.GPS_ID }}</td>
+            <td>{{ i.RC_NO }}</td>
+            <td>{{ i.Photo }}</td>
+            <td>
+                {% if i.LOGIN.UserType == "bus" %}
+                    <a href="/BlockBuss/{{ i.LOGIN.id }}">Block</a>
+                {% elif i.LOGIN.UserType == "blocked" %}
+                    <a href="/UnblockBus/{{ i.LOGIN.id }}">Unblock</a>
+                {% endif %}
+            </td>
         </tr>
+        {% endfor %}
     </table>
 </body>
 </html>

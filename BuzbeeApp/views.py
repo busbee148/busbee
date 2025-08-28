@@ -1,7 +1,8 @@
 
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import get_object_or_404, redirect, render, HttpResponse
 from django.views import View
 
+from BuzbeeApp.form import Owner_Registerform
 from BuzbeeApp.models import *
 
 # Create your views here.
@@ -42,12 +43,24 @@ class DriverHome(View):
     def get(self,request):
         return render(request,"busdriver/driverhome.html") 
     
+
+class DriverRegister(View):
+    def get(self,request):
+        return render(request,"busdriver/driverregistration.html")
+    def post(self,request):
+        form=DriverRegister(request.POST)
+        print(form)
+        if form.is_valid():
+            f=form.save(commit=False)
+            f.LOGIN=LoginTable.objects.create(Username=request.POST['Username'],Password=request.POST['Password'],UserType='DRIVER')
+            f.save()
+            return HttpResponse('''<script>alert('succcesfully registered');window.location='/';</script>''')
+
+    
 class ConducterHome(View):
     def get(self,request):
         return render(request,"conducter/conducterhome.html") 
-class AddBusDriver(View):
-    def get(self,request):
-        return render(request,"administration/addbusdriver.html") 
+    
       
 class AddBusRoute(View):
     def get(self,request):
@@ -62,10 +75,7 @@ class ApproveBusDetails(View):
         obj=BusTable.objects.all()
         return render(request,"administration/approvebusdetails.html",{'val':obj}) 
 
-class BlockBus(View):
-    def get(self,request):
-        obj=BusTable.objects.all()
-        return render(request,"administration/blockbus.html",{'val':obj}) 
+
 
 class EditBusDriver(View):
     def get(self,request):
@@ -104,8 +114,47 @@ class ViewOwner(View):
         obj = OwnerTable.objects.all()
         return render(request,"administration/viewowner.html", {'val': obj}) 
     
+class ApproveOwner(View):
+    def get(self,request,lid):
+        obj = OwnerTable.objects.get(id=lid)
+        obj.LOGIN.UserType="Owner"
+        obj.LOGIN.save()
+        return redirect('ViewOwner')
+    
+class RejectOwner(View):
+    def get(self,request,lid):
+        obj = OwnerTable.objects.get(id=lid)
+        obj.LOGIN.UserType="rejected"
+        obj.LOGIN.save()
+        return redirect('ViewOwner')
+class BlockBus(View):
+    def get(self,request):
+        obj=BusTable.objects.all()
+        return render(request,"administration/blockbus.html",{'val':obj})     
+    
+class BlockBuss(View):
+    def get(self, request, lid):
+        login = get_object_or_404(LoginTable, id=lid)
+        login.UserType = "blocked"
+        login.save()
+        return redirect('BlockBus')
+    
+class UnblockBus(View):
+    def get(self,request,lid):
+        login = get_object_or_404(LoginTable, id=lid)
+        login.UserType = "bus"
+        login.save()
+        return redirect('BlockBus')
+    
+
+    
 # ///////////////////////////////////////////////// BUSDRIVER    ///////////////////////////////////
-#     
+#   
+
+class AddBusDriver(View):
+    def get(self,request):
+        return render(request,"administration/addbusdriver.html") 
+      
 class TripStatus(View):
     def get(self,request):
         return render(request,"busdriver/tripstatus.html")
@@ -120,12 +169,25 @@ class VerifyTicket(View):
     
 class AddBus(View):
     def get(self,request):
+        form=(request.POST,request.FILES)
+        if form.is_valid():
+            f=form.save(commit=False)
+            f.LOGINID=LoginTable.objects.create(username=request.POST['email'],password=request.POST['password'],usertype='owner')
+            f.save()
         return render(request,"owner/addbus.html")
 
-class Register(View):
+class OwnerRegistration(View):
     def get(self,request):
         return render(request,"owner/register.html")
-      
+    def post(self,request):
+        form=Owner_Registerform(request.POST)
+        print(form)
+        if form.is_valid():
+            f=form.save(commit=False)
+            f.LOGIN=LoginTable.objects.create(Username=request.POST['Username'],Password=request.POST['Password'],UserType='pending')
+            f.save()
+            return HttpResponse('''<script>alert('succcesfully registered');window.location='/';</script>''')
+
 class TrackBus(View):
     def get(self,request):
         return render(request,"owner/trackbus.html") 
