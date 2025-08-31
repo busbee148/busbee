@@ -13,33 +13,27 @@
     <table>
             <tr>
                 <td>Driver name:</td>
-                <td><input type="text" name="Driver name"></td>
-            </tr>
-            <tr>
-                <td>Username:</td>
-                <td><input type="text" name="Username"></td>
-            </tr>
-            <tr>
-                <td>Password:</td>
-                <td><input type="password" name="password"></td>
+                <td><input type="text" name="Driver_Name" value="{{ val.Driver_Name }}"></td>
             </tr>
             <tr>
                 <td>Licence Number:</td>
-                <td><input type="text" name="Licence Number"></td>
+                <td><input type="text" name="Licence_NO" value="{{val.Licence_NO}}"></td>
             </tr>
             <tr>
                 <td>Age</td>
-                <td><input type="text" size="2" name="Age"></td>
+                <td><input type="text" size="2" name="Age" value="{{val.Age}}"></td>
                 <td>Gender</td>
-                <td><input type="radio" name="gender" value="F" >F<input type="radio"name="gender" value="M">M</td>
+                <td><input type="radio" name="Gender" value="f" {% if val.Gender == 'f' %} checked {% endif %}>F
+                    <input type="radio"name="Gender" value="m" {% if val.Gender == 'm' %} checked {% endif %}>M
+                </td>
             </tr>
             <tr>
                 <td>ContactNo:</td>
-                <td><input type="text" name="ContactNo"></td>
+                <td><input type="text" name="Contact_NO" value="{{val.Contact_NO}}"></td>
             </tr>
             <tr>
                 <td>Address:</td>
-                <td><textarea name="Address"></textarea></td>
+                <td><textarea name="Address">{{val.Address}}</textarea></td>
             </tr>
             <tr>
                 <td>Status</td>
@@ -48,8 +42,12 @@
                     <option value="Inactive">Inactive</option>
                 </select></td>
             </tr>
-            <tr ><td align="center" colspan="2">
-                <input type="submit" name="Edit" value="Edit"></td>
+            <tr >
+                 
+                <td align="center" colspan="2">
+                <input type="submit" name="Edit" value="Edit">
+                </td>
+              
             </tr>
     </table>
     </form>

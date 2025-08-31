@@ -15,8 +15,8 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-
 from django.urls import path
+
 
 from BuzbeeApp.views import *
 urlpatterns = [
@@ -31,18 +31,28 @@ urlpatterns = [
     path('ConducterHome',ConducterHome.as_view(),name="ConducterHome"),
     path('AddBusDriver',AddBusDriver.as_view(), name="AddBusDriver"),
     path('AddBusRoute',AddBusRoute.as_view(), name="AddBusRoute"),
+    path('ViewBusRoutes',ViewBusRoutes.as_view(), name="ViewBusRoutes"),
     path('AddBusStop',AddBusStop.as_view(), name="AddBusStop"),
+    path('ViewBusStop',ViewBusStop.as_view(),name="ViewBusStop"),
+    path('DeleteBusStop/<int:sid>',DeleteBusStop.as_view(),name="DeleteBusStop"),
+    path('DeleteBusRoute/<int:rid>',DeleteBusRoute.as_view(),name="DeleteBusRoute"),
     path('ApproveBusDetails',ApproveBusDetails.as_view(), name="ApproveBusDetails"),
+    path('ApproveBusDetail/<int:lid>',ApproveBusDetail.as_view(),name="ApproveBusDetail"),
+    path('RejectBusDetail/<int:lid>',RejectBusDetail.as_view(),name="RejectBusDetail"),
     path('BlockBus',BlockBus.as_view(),name="BlockBus"),
-    path('BlockBuss/<int:lid>',BlockBuss.as_view(),name='BlockBuss'),
-    path('UnblockBus/<int:lid>',UnblockBus.as_view(),name='UnblockBus'),
-    path('EditBusDriver',EditBusDriver.as_view(),name="EditBusDriver"),
+    path('BlockBuss/<int:bus_id>',BlockBuss.as_view(),name='BlockBuss'),
+    path('UnblockBus/<int:bus_id>',UnblockBus.as_view(),name='UnblockBus'),
+    path('EditBusDriver/<int:dr_id>',EditBusDriver.as_view(),name="EditBusDriver"),
+    path('DeleteBusDriver/<int:lid>',DeleteBusDriver.as_view(),name="DeleteBusDriver"),
     path('FeedBack',FeedBack.as_view(),name="FeedBack"),
     path('ManageOwner',ManageOwner.as_view(),name="ManageOwner"),
     path('ManageOwner1',ManageOwner1.as_view(),name="ManageOwner1"),
     path('VVBR',VVBR.as_view(),name="VVBR"),
+    path('ApproveVVBR/<int:lid>',ApproveVVBR.as_view(),name="ApproveVVBR"),
+    path('RejectVVBR/<int:lid>',RejectVVBR.as_view(),name="RejectVVBR"),
     path('ViewBusDriver',ViewBusDriver.as_view(),name="ViewBusDriver"),
     path('ViewComplaint',ViewComplaint.as_view(),name="ViewComplaint"),
+    path('ComplaintReply/<int:c_id>',ComplaintReply.as_view(),name="ComplaintReply"),
     path('ViewOwner',ViewOwner.as_view(),name="ViewOwner"),
     path('ApproveOwner/<int:lid>',ApproveOwner.as_view(),name="ApproveOwner"),
     path('RejectOwner/<int:lid>',RejectOwner.as_view(),name="RejectOwner"),

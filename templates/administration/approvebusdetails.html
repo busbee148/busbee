@@ -11,7 +11,6 @@
             <th>Bus Name</th>
             <th>Bus No</th>
             <th>Capacity</th>
-            <th>GPS ID</th>
             <th>RC Number</th>
             <th>Photo</th>
             <th></th>
@@ -21,10 +20,19 @@
             <td>{{i.Busname}}</td>
             <td>{{i.Bus_NO}}</td>
             <td>{{i.Capacity}} </td>
-             <td> </td>
+           
             <td> {{i.RC_NO}}</td>
             <td> {{i.Photo}}</td>
-            <td> <input type="submit" value="Approve"><br><input type="submit" value="Reject"></td>
+            <td>
+                {% if i.LOGIN.UserType == "pending" %}
+                    <a href="/ApproveBusDetail/{{i.id}}">Approve</a>
+                    <a href="/RejectBusDetail/{{i.id}}">Reject</a>
+                {% elif i.LOGIN.UserType == "bus"%} 
+                    <a href="/RejectBusDetail/{{i.id}}">Reject</a>
+                {% elif i.LOGIN.UserType == "rejected"%} 
+                    <a href="/ApproveBusDetail/{{i.id}}">Approve</a>
+                {% endif %}
+            </td>
         </tr>
         {% endfor %}
     </table>

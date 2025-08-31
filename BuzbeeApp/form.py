@@ -12,6 +12,9 @@ class Driver_Registerform(ModelForm):
         model = DriverTable
         fields = ['Driver_Name','Licence_NO','Age','Gender','Contact_NO','Address']
 
-        
+class Driver_Updateform(ModelForm):
+    class Meta:
+        model = DriverTable
+        fields = ['Driver_Name','Licence_NO','Age','Gender','Contact_NO','Address']
 
 

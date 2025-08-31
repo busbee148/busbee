@@ -16,7 +16,16 @@
         <tr>
              <td>{{i.BUS.Bus_NO}}</td>
              <td>{{i.ROUTE.Route_ID}}</td>
-            <td><input type="submit" value="Approve"><br><input type="submit" value="Reject"></td>
+            <td>
+                {% if i.LOGIN.UserType == "pending" %}
+                    <a href="/ApproveVVBR/{{i.id}}">Approve</a>
+                    <a href="/RejectVVBR/{{i.id}}">Reject</a>
+                {% elif i.LOGIN.UserType == "bus"%} 
+                    <a href="/RejectVVBR/{{i.id}}">Reject</a>
+                {% elif i.LOGIN.UserType == "Rejected"%} 
+                    <a href="/ApproveVVBR/{{i.id}}">Approve</a>
+                {% endif %}
+            </td>
         </tr>
         {% endfor %}
     </table>

@@ -27,8 +27,9 @@
             <td>{{i.Address}} </td>
             <td>{{i.Status}} </td>
             <td>
-                <a href="/EditBusDriver">Edit</a> 
-                <input type="submit" value="Delete"></td>
+                <a href="/EditBusDriver/{{ i.id }}">Edit</a> 
+                <a href="/DeleteBusDriver/{{ i.LOGIN.id }}">Delete</a>
+            </td>
         </tr>
         {% endfor %}
     </table>

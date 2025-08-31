@@ -2,7 +2,7 @@
 from django.shortcuts import get_object_or_404, redirect, render, HttpResponse
 from django.views import View
 
-from BuzbeeApp.form import Owner_Registerform
+from BuzbeeApp.form import *
 from BuzbeeApp.models import *
 
 # Create your views here.
@@ -47,8 +47,9 @@ class DriverHome(View):
 class DriverRegister(View):
     def get(self,request):
         return render(request,"busdriver/driverregistration.html")
+    
     def post(self,request):
-        form=DriverRegister(request.POST)
+        form=Driver_Registerform(request.POST)
         print(form)
         if form.is_valid():
             f=form.save(commit=False)
@@ -65,21 +66,73 @@ class ConducterHome(View):
 class AddBusRoute(View):
     def get(self,request):
         return render(request,"administration/addbusroute.html")
-      
+    
+class ViewBusRoutes(View):
+    def get(self,request):
+        obj=BusRouteTable.objects.all()
+        return render(request,"administration/viewbusroute.html", {'val':obj})
+
+class DeleteBusRoute(View):
+    def get(self,request, rid):
+        obj = BusRouteTable.objects.get(id=rid)
+        obj.delete()
+        return redirect('ViewBusRoutes')
+    
+class DeleteBusStop(View):
+    def get(self,request, sid):
+        obj = BusStopTable.objects.get(id=sid)
+        obj.delete()
+        return redirect('ViewBusStop')
+    
+class ViewBusStop(View):
+    def get(self,request):
+        obj=BusStopTable.objects.all()
+        return render(request,"administration/viewbusstop.html", {'val':obj})      
+
 class AddBusStop(View):
     def get(self,request):
         return render(request,"administration/addbusstop.html")  
-    
+
+
 class ApproveBusDetails(View):
     def get(self,request):
         obj=BusTable.objects.all()
         return render(request,"administration/approvebusdetails.html",{'val':obj}) 
+    
+class ApproveBusDetail(View):
+    def get(self,request,lid):
+        obj = BusTable.objects.get(id=lid)
+        obj.LOGIN.UserType="bus"
+        obj.LOGIN.save()
+        return redirect('ApproveBusDetails')
+    
+class RejectBusDetail(View):
+    def get(self,request,lid):
+        obj = BusTable.objects.get(id=lid)
+        obj.LOGIN.UserType="rejected"
+        obj.LOGIN.save()
+        return redirect('ApproveBusDetails')
 
 
-
+class DeleteBusDriver(View):
+    def get(self,request, lid):
+        obj = LoginTable.objects.get(id=lid)
+        obj.delete()
+        return redirect('ViewBusDriver')
+    
+    
 class EditBusDriver(View):
-    def get(self,request):
-        return render(request,"administration/editbusdriver.html") 
+    def get(self,request, dr_id):
+        obj = DriverTable.objects.get(id=dr_id)
+        return render(request,"administration/editbusdriver.html",{'val': obj}) 
+    def post(self,request, dr_id):
+        obj = DriverTable.objects.get(id=dr_id)
+        form=Driver_Updateform(request.POST, instance=obj)
+        print(form)
+        if form.is_valid():
+            form.save()
+            return HttpResponse('''<script>alert('Edited Succcesfully');window.location='/ViewBusDriver';</script>''')
+    
     
 class FeedBack(View):
     def get(self,request):
@@ -99,6 +152,20 @@ class VVBR(View):
         obj=AssignBusRouteTable.objects.all()
         return render(request,"administration/view&verifybusroute.html",{'val':obj})   
     
+class ApproveVVBR(View):
+    def get(self,request,lid):
+        obj = BusRouteTable.objects.get(id=lid)
+        obj.LOGIN.UserType="bus"
+        obj.LOGIN.save()
+        return redirect('VVBR')
+    
+class RejectVVBR(View):
+    def get(self,request,lid):
+        obj = BusRouteTable.objects.get(id=lid)
+        obj.LOGIN.UserType="rejected"
+        obj.LOGIN.save()
+        return redirect('VVBR')
+    
 class ViewBusDriver(View):
     def get(self,request):
         obj=DriverTable.objects.all()
@@ -108,7 +175,15 @@ class ViewComplaint(View):
     def get(self,request):
         obj=ComplaintTable.objects.all()
         return render(request,"administration/viewcomplaint.html",{'val': obj}) 
-    
+
+class ComplaintReply(View):
+    def post(self,request, c_id):
+        reply=request.POST['reply']
+        obj=ComplaintTable.objects.get(id=c_id)
+        obj.Reply = reply
+        obj.save()
+        return redirect('ViewComplaint')
+
 class ViewOwner(View):
     def get(self,request):
         obj = OwnerTable.objects.all()
@@ -133,17 +208,17 @@ class BlockBus(View):
         return render(request,"administration/blockbus.html",{'val':obj})     
     
 class BlockBuss(View):
-    def get(self, request, lid):
-        login = get_object_or_404(LoginTable, id=lid)
-        login.UserType = "blocked"
-        login.save()
+    def get(self, request, bus_id):
+        obj = get_object_or_404(BusTable, id=bus_id)
+        obj.Status = "blocked"
+        obj.save()
         return redirect('BlockBus')
     
 class UnblockBus(View):
-    def get(self,request,lid):
-        login = get_object_or_404(LoginTable, id=lid)
-        login.UserType = "bus"
-        login.save()
+    def get(self,request,bus_id):
+        obj = get_object_or_404(BusTable, id=bus_id)
+        obj.Status = "active"
+        obj.save()
         return redirect('BlockBus')
     
 

@@ -51,13 +51,15 @@ class BusTable(models.Model):
      Capacity = models.IntegerField(blank=True,null=True)
      RC_NO = models.CharField(max_length=15,blank=True,null=True)
      Photo = models.FileField(blank=True,null=True)
-     LOGIN = models.ForeignKey(LoginTable, on_delete=models.CASCADE)
+     OWNER = models.ForeignKey(OwnerTable, on_delete=models.CASCADE)
+     Status = models.CharField(max_length=20, null=True, blank=True)
      
 class BusRouteTable(models.Model):
     Route_ID = models.CharField(max_length=10,blank=True,null=True)
     Source = models.CharField(max_length=30,blank=True,null=True)
     Destination = models.CharField(max_length=30,blank=True,null=True)
     
+
 class BusStopTable(models.Model):
     Stop_name = models.CharField(max_length=30,blank=True,null=True)
     Landmark = models.CharField(max_length=30,blank=True,null=True)

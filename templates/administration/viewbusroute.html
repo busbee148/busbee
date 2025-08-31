@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>view & select bus route</title>
+</head>
+<body>
+    <table border="1">
+        <tr>
+            <th>Route ID</th>
+            <th>Source</th>
+            <th>Destination</th>
+            <th></th>
+        </tr>
+        {% for i in val %}
+        <tr>
+            <td>{{i.Route_ID}}</td>
+            <td>{{i.Source}}</td>
+            <td>{{i.Destination}}</td>
+            <td>
+                <a href="DeleteBusRoute/{{ i.id }}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+             <a href="/AddBusRoute">ADD</a>
+</body>
+</html>

@@ -11,7 +11,6 @@
             <th>Bus Name</th>
             <th>Bus No</th>
             <th>Capacity</th>
-            <th>GPS ID</th>
             <th>RC Number</th>
             <th>Photo</th>
             <th>Action</th>
@@ -21,14 +20,13 @@
             <td>{{ i.Busname }}</td>
             <td>{{ i.Bus_NO }}</td>
             <td>{{ i.Capacity }}</td>
-            <td>{{ i.GPS_ID }}</td>
             <td>{{ i.RC_NO }}</td>
             <td>{{ i.Photo }}</td>
             <td>
-                {% if i.LOGIN.UserType == "bus" %}
-                    <a href="/BlockBuss/{{ i.LOGIN.id }}">Block</a>
-                {% elif i.LOGIN.UserType == "blocked" %}
-                    <a href="/UnblockBus/{{ i.LOGIN.id }}">Unblock</a>
+                {% if i.Status == "active" %}
+                    <a href="/BlockBuss/{{ i.id }}">Block</a>
+                {% elif i.Status == "blocked" %}
+                    <a href="/UnblockBus/{{ i.id }}">Unblock</a>
                 {% endif %}
             </td>
         </tr>
