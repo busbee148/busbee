@@ -7,19 +7,28 @@
 </head>
 <body>
     <table border="1">
+        <form method="post" action="/SearchStop">
+            {% csrf_token %}
         <tr>
-            <th>Route ID</th>
-            <th>Source</th>
-            <th>Destination</th>
+            <td>
+                <select name="route_id">
+                    <option value="0">-- please select a route--</option>
+                    {% for i in val1 %}
+                    <option value="{{i.id}}">{{ i.Source }} - {{ i.Destination }}</option>
+                    {% endfor %}
+                </select>
+                <input type="submit" value="Search">
+            </td>
+        </tr>
+        </form>
+        <tr>
+            
             <th>Stop name</th>
             <th>Landmark</th>
             <th></th>
         </tr>
         {% for i in val %}
         <tr>
-            <td>{{i.BUSROUTE.Route_ID}}</td>
-            <td>{{i.BUSROUTE.Source}}</td>
-            <td>{{i.BUSROUTE.Destination}}</td>
             <td>{{i.Stop_name}}</td>
             <td>{{i.Landmark}}</td>
             <td>

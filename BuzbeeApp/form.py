@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from BuzbeeApp.models import DriverTable, OwnerTable
+from BuzbeeApp.models import *
 
 
 class Owner_Registerform(ModelForm):
@@ -17,4 +17,12 @@ class Driver_Updateform(ModelForm):
         model = DriverTable
         fields = ['Driver_Name','Licence_NO','Age','Gender','Contact_NO','Address']
 
+class Add_RouteForm(ModelForm):
+    class Meta:
+        model = BusRouteTable
+        fields = ['Source','Destination']
 
+class Add_Busstop(ModelForm):
+    class Meta:
+        model = BusStopTable
+        fields =['Stop_name','Landmark','Photo']

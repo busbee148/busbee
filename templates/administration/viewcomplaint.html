@@ -19,13 +19,18 @@
              <td>{{i.USER.Name}}</td>
              <td>{{i.BUS.Bus_NO}}</td>
              <td>{{i.Complaint}}</td>
+            {% if i.Reply == "pending" %}
              <form method="post" action="/ComplaintReply/{{ i.id }}">
                 {% csrf_token %}
              <td align="center" colspan="2">
                 <textarea name="reply"></textarea>
                 <input type="submit" value="send">
             </td>
-            </form>
+             </form>
+           
+            {% else %}
+             <td>{{i.Reply}}</td>
+            {% endif %}
         </tr>
          {% endfor %}
     </table>

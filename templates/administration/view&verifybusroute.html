@@ -9,20 +9,24 @@
     <table border="1">
         <tr>
             <th>Bus number</th>
-             <th>Route ID</th>
+             <th>Route</th>
+              <th>Time</th>
               <th> </th>
         </tr>
         {% for i in val %}
         <tr>
              <td>{{i.BUS.Bus_NO}}</td>
-             <td>{{i.ROUTE.Route_ID}}</td>
+             <td>{{i.ROUTE.Source}} - {{i.ROUTE.Destination}}</td>
+             <td>start:-{{i.Start_Time}}<br>
+                End :- {{ i.End_Time }}
+            </td>
             <td>
-                {% if i.LOGIN.UserType == "pending" %}
+                {% if i.Status == "pending" %}
                     <a href="/ApproveVVBR/{{i.id}}">Approve</a>
                     <a href="/RejectVVBR/{{i.id}}">Reject</a>
-                {% elif i.LOGIN.UserType == "bus"%} 
+                {% elif  i.Status  == "accepted"%} 
                     <a href="/RejectVVBR/{{i.id}}">Reject</a>
-                {% elif i.LOGIN.UserType == "Rejected"%} 
+                {% elif i.Status == "rejected"%} 
                     <a href="/ApproveVVBR/{{i.id}}">Approve</a>
                 {% endif %}
             </td>

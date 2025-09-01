@@ -34,6 +34,7 @@ urlpatterns = [
     path('ViewBusRoutes',ViewBusRoutes.as_view(), name="ViewBusRoutes"),
     path('AddBusStop',AddBusStop.as_view(), name="AddBusStop"),
     path('ViewBusStop',ViewBusStop.as_view(),name="ViewBusStop"),
+    path('SearchStop',SearchStop.as_view(),name="SearchStop"),
     path('DeleteBusStop/<int:sid>',DeleteBusStop.as_view(),name="DeleteBusStop"),
     path('DeleteBusRoute/<int:rid>',DeleteBusRoute.as_view(),name="DeleteBusRoute"),
     path('ApproveBusDetails',ApproveBusDetails.as_view(), name="ApproveBusDetails"),
@@ -66,7 +67,7 @@ urlpatterns = [
     
     #//////////////////////////////////////////  OWNER  ////////////////////////////////////////// 
     path('AddBus',AddBus.as_view(),name="AddBus"),
-    # path('Register',Register.as_view(),name="Register"),
+    path('OwnerRegistration',OwnerRegistration.as_view(),name="OwnerRegistration"),
     path('TrackBus',TrackBus.as_view(),name="TrackBus"),
     path('ViewBus',ViewBus.as_view(),name="ViewBus"),
     path('ViewBusDrivers',ViewBusDrivers.as_view(),name="ViewBusDrivers"),

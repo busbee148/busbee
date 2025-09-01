@@ -18,8 +18,9 @@ class LoginPage(View):
             request.session['login id'] = user.id
             if user.UserType=='admin':
                 return HttpResponse('''<script>alert('welcome back');window.location='/AdminHome'</script>''')
-            elif user.UserType=='owner':
-                return render(request,'owner/OwnerHome')
+            elif user.UserType=='Owner':
+                return HttpResponse('''<script>alert('welcome back');window.location='/OwnerHome'</script>''')
+
             elif user.UserType=='busdriver':
                 return render(request,'busdriver/DriverHome')
             elif user.UserType=='conducter':
@@ -66,6 +67,11 @@ class ConducterHome(View):
 class AddBusRoute(View):
     def get(self,request):
         return render(request,"administration/addbusroute.html")
+    def post(self,request):
+        c=Add_RouteForm(request.POST)
+        if c.is_valid():
+            c.save()
+        return redirect('ViewBusRoutes')
     
 class ViewBusRoutes(View):
     def get(self,request):
@@ -87,11 +93,30 @@ class DeleteBusStop(View):
 class ViewBusStop(View):
     def get(self,request):
         obj=BusStopTable.objects.all()
-        return render(request,"administration/viewbusstop.html", {'val':obj})      
+        obj1 = BusRouteTable.objects.all()
+        return render(request,"administration/viewbusstop.html", {'val':obj,'val1':obj1})   
+       
+class SearchStop(View):
+    def post(self,request):
+        route = request.POST['route_id']
+        if route == "0":
+            obj=BusStopTable.objects.all()
+        else:    
+            obj=BusStopTable.objects.filter(BUSROUTE_id=route)
+        obj1 = BusRouteTable.objects.all()
+        return render(request,"administration/viewbusstop.html", {'val':obj,'val1':obj1})   
+       
+
 
 class AddBusStop(View):
     def get(self,request):
-        return render(request,"administration/addbusstop.html")  
+        obj = BusRouteTable.objects.all()
+        return render(request,"administration/addbusstop.html",{'val':obj})
+    def post(self,request):
+        s=Add_Busstop(request.POST)
+        if s.is_valid():
+            s.save()
+        return redirect('ViewBusStop')  
 
 
 class ApproveBusDetails(View):
@@ -102,15 +127,15 @@ class ApproveBusDetails(View):
 class ApproveBusDetail(View):
     def get(self,request,lid):
         obj = BusTable.objects.get(id=lid)
-        obj.LOGIN.UserType="bus"
-        obj.LOGIN.save()
+        obj.Status="active"
+        obj.save()
         return redirect('ApproveBusDetails')
     
 class RejectBusDetail(View):
     def get(self,request,lid):
         obj = BusTable.objects.get(id=lid)
-        obj.LOGIN.UserType="rejected"
-        obj.LOGIN.save()
+        obj.Status="rejected"
+        obj.save()
         return redirect('ApproveBusDetails')
 
 
@@ -154,16 +179,16 @@ class VVBR(View):
     
 class ApproveVVBR(View):
     def get(self,request,lid):
-        obj = BusRouteTable.objects.get(id=lid)
-        obj.LOGIN.UserType="bus"
-        obj.LOGIN.save()
+        obj = AssignBusRouteTable.objects.get(id=lid)
+        obj.Status="accepted"
+        obj.save()
         return redirect('VVBR')
     
 class RejectVVBR(View):
     def get(self,request,lid):
-        obj = BusRouteTable.objects.get(id=lid)
-        obj.LOGIN.UserType="rejected"
-        obj.LOGIN.save()
+        obj = AssignBusRouteTable.objects.get(id=lid)
+        obj.Status="rejected"
+        obj.save()
         return redirect('VVBR')
     
 class ViewBusDriver(View):
@@ -269,19 +294,23 @@ class TrackBus(View):
     
 class ViewBus(View):
     def get(self,request):
-        return render(request,"owner/viewbus.html") 
+        obj=BusTable.objects.all()
+        return render(request,"owner/viewbus.html",{'val':obj}) 
     
 class ViewBusDrivers(View):
     def get(self,request):
-        return render(request,"owner/viewbusdrivers.html") 
+        obj=DriverTable.objects.all()
+        return render(request,"owner/viewbusdrivers.html",{'val':obj}) 
     
 class ViewBusRoute(View):
     def get(self,request):
-        return render(request,"owner/viewbusroute.html") 
+        obj=BusRouteTable.objects.all()
+        return render(request,"owner/viewbusroute.html",{'val':obj}) 
     
 class ViewConducter(View):
     def get(self,request):
-        return render(request,"owner/viewconducter.html") 
+        obj=CondoctorTable.objects.all()
+        return render(request,"owner/viewconducter.html",{'val':obj}) 
     
 
 class LogoutView(View):

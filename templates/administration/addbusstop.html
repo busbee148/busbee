@@ -6,21 +6,23 @@
     <title>addbusstop</title>
 </head>
 <body>
-     <form method="post">
+     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
     <table>
+       
         <tr>
-            <td>Source:</td>
-            <td><select><option></option></select></td>
-        </tr>
-        <tr>
-            <td>Destination:</td>
-            <td><select><option></option></select></td>
-
+            <td>Route:</td>
+            <td><select>
+            
+                <option>-- please select an option --</option>
+                {% for i in val %}
+                <option value="{{i.id}}">{{ i.Source }} - {{ i.Destination }}</option>
+                {% endfor %}
+            </select></td>
         </tr>
         <tr>
             <td>Stop name:</td>
-            <td><input type="text" name="Stop name"></td>
+            <td><input type="text" name="Stop_name"></td>
         </tr>
         <tr>
             <td>Landmark:</td>
@@ -28,7 +30,10 @@
         </tr>
         <tr>
             <td>Photo:</td>
-            <td><input type="image" value=" " name="Photo"></td>
+            <td><input type="file" value="" name="Photo"></td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Add"></td>
         </tr>
     </table>
     </form>

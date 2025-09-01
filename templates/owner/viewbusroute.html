@@ -8,23 +8,17 @@
 <body>
     <table border="1">
         <tr>
-            <th>Route ID</th>
             <th>Source</th>
             <th>Destination</th>
             <th></th>
         </tr>
+        {% for i in val %}
         <tr>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>{{i.Source}}</td>
+            <td>{{i.Destination}}</td>
             <td><input type="checkbox"></td>
         </tr>
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td><input type="checkbox"></td>
-        </tr>
+        {% endfor %}
     </table>
 </body>
 </html>

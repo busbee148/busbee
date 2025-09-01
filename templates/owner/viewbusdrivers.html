@@ -13,6 +13,14 @@
             <th>Contact NO</th>
             <th>Status</th>
         </tr>
+        {% for i in val %}
+        <tr>
+            <td>{{ i.Driver_Name }}</td>
+            <td>{{ i.Licence_NO}}</td>
+            <td>{{i.Contact_NO }}</td>
+            <td>{{i.Status}}  </td>
+        </tr>
+        {% endfor %}
     </table>
 </body>
 </html>

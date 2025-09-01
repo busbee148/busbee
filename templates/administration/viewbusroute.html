@@ -15,7 +15,7 @@
         </tr>
         {% for i in val %}
         <tr>
-            <td>{{i.Route_ID}}</td>
+            <td>{{forloop.counter}}</td>
             <td>{{i.Source}}</td>
             <td>{{i.Destination}}</td>
             <td>
