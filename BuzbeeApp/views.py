@@ -15,7 +15,7 @@ class LoginPage(View):
         Password = request.POST['Password'] 
         try:
             user=LoginTable.objects.get(Username=Username,Password=Password)
-            request.session['login id'] = user.id
+            request.session['login_id'] = user.id
             if user.UserType=='admin':
                 return HttpResponse('''<script>alert('welcome back');window.location='/AdminHome'</script>''')
             elif user.UserType=='Owner':
@@ -47,8 +47,7 @@ class DriverHome(View):
 
 class DriverRegister(View):
     def get(self,request):
-        return render(request,"busdriver/driverregistration.html")
-    
+        return render(request,"owner/driverregister.html") 
     def post(self,request):
         form=Driver_Registerform(request.POST)
         print(form)
@@ -56,7 +55,7 @@ class DriverRegister(View):
             f=form.save(commit=False)
             f.LOGIN=LoginTable.objects.create(Username=request.POST['Username'],Password=request.POST['Password'],UserType='DRIVER')
             f.save()
-            return HttpResponse('''<script>alert('succcesfully registered');window.location='/';</script>''')
+            return HttpResponse('''<script>alert('succcesfully registered');window.location='/ViewBusDriver';</script>''')
 
     
 class ConducterHome(View):
@@ -190,12 +189,7 @@ class RejectVVBR(View):
         obj.Status="rejected"
         obj.save()
         return redirect('VVBR')
-    
-class ViewBusDriver(View):
-    def get(self,request):
-        obj=DriverTable.objects.all()
-        return render(request,"administration/viewbusdriver.html",{'val':obj}) 
-    
+        
 class ViewComplaint(View):
     def get(self,request):
         obj=ComplaintTable.objects.all()
@@ -251,10 +245,6 @@ class UnblockBus(View):
 # ///////////////////////////////////////////////// BUSDRIVER    ///////////////////////////////////
 #   
 
-class AddBusDriver(View):
-    def get(self,request):
-        return render(request,"administration/addbusdriver.html") 
-      
 class TripStatus(View):
     def get(self,request):
         return render(request,"busdriver/tripstatus.html")
@@ -269,12 +259,16 @@ class VerifyTicket(View):
     
 class AddBus(View):
     def get(self,request):
-        form=(request.POST,request.FILES)
-        if form.is_valid():
-            f=form.save(commit=False)
-            f.LOGINID=LoginTable.objects.create(username=request.POST['email'],password=request.POST['password'],usertype='owner')
+        obj=BusTable.objects.all()
+        return render(request,"owner/addbus.html",{'val':obj})
+    def post(self,request):
+        b=BusForm(request.POST, request.FILES)
+        print("---------->", request.POST)
+        if b.is_valid():
+            f= b.save()
+            f.OWNER = OwnerTable.objects.get(LOGIN_id=request.session['login_id'])
             f.save()
-        return render(request,"owner/addbus.html")
+            return redirect('ViewBus')
 
 class OwnerRegistration(View):
     def get(self,request):
@@ -284,7 +278,7 @@ class OwnerRegistration(View):
         print(form)
         if form.is_valid():
             f=form.save(commit=False)
-            f.LOGIN=LoginTable.objects.create(Username=request.POST['Username'],Password=request.POST['Password'],UserType='pending')
+            f.LOGIN=BusTable.objects.create(Username=request.POST['Username'],Password=request.POST['Password'],UserType='pending')
             f.save()
             return HttpResponse('''<script>alert('succcesfully registered');window.location='/';</script>''')
 
@@ -297,10 +291,16 @@ class ViewBus(View):
         obj=BusTable.objects.all()
         return render(request,"owner/viewbus.html",{'val':obj}) 
     
-class ViewBusDrivers(View):
+class DeleteBus(View):
+    def get(self,request, bid):
+        obj = BusTable.objects.get(id=bid)
+        obj.delete()
+        return redirect('ViewBus')
+    
+class ViewBusDriver(View):
     def get(self,request):
         obj=DriverTable.objects.all()
-        return render(request,"owner/viewbusdrivers.html",{'val':obj}) 
+        return render(request,"owner/viewbusdriver.html",{'val':obj}) 
     
 class ViewBusRoute(View):
     def get(self,request):
@@ -310,8 +310,38 @@ class ViewBusRoute(View):
 class ViewConducter(View):
     def get(self,request):
         obj=CondoctorTable.objects.all()
-        return render(request,"owner/viewconducter.html",{'val':obj}) 
+        return render(request,"owner/viewconducter.html",{'val':obj})
+     
+class AddConducter(View):
+    def get(self,request):
+        obj=CondoctorTable.objects.all()
+        return render(request,"owner/addconducter.html",{'val':obj}) 
+    def post(self,request):
+        form=Add_ConducterForm(request.POST)
+        print(form)
+        if form.is_valid():
+            f=form.save(commit=False)
+            f.LOGIN=LoginTable.objects.create(Username=request.POST['Username'],Password=request.POST['Password'],UserType='DRIVER')
+            f.save()
+            return HttpResponse('''<script>alert('succcesfully registered');window.location='/ViewConducter';</script>''')
     
+class DeleteConducter(View):
+    def get(self,request, lid):
+        obj = LoginTable.objects.get(id=lid)
+        obj.delete()
+        return redirect('ViewConducter')
+    
+class EditConducter(View):
+    def get(self,request, dr_id):
+        obj = CondoctorTable.objects.get(id=dr_id)
+        return render(request,"owner/editconducter.html",{'val': obj}) 
+    def post(self,request, dr_id):
+        obj = CondoctorTable.objects.get(id=dr_id)
+        form=Add_ConducterForm(request.POST, instance=obj)
+        print(form)
+        if form.is_valid():
+            form.save()
+            return HttpResponse('''<script>alert('Edited Succcesfully');window.location='/ViewConducter';</script>''')
 
 class LogoutView(View):
     def get(self, request):

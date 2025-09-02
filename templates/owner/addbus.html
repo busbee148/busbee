@@ -6,34 +6,42 @@
     <title>Add bus with full detail</title>
 </head>
 <body>
+     <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
     <table>
         <tr>
             <td>Bus name:</td>
-            <td><input type="text" name="Bus name"></td>
+            <td><input type="text" name="Busname"></td>
         </tr>
         <tr>
             <td>Bus NO:</td>
-            <td><input type="text" name="Bus NO"></td>
+            <td><input type="text" name="Bus_NO"></td>
         </tr>
         <tr>
             <td>Capacity:</td>
             <td><input type="text" name="Capacity"></td>
         </tr>
         <tr>
-            <td>GPS ID</td>
-            <td><input type="text" name="GPS ID"></td>
-        </tr>
-        <tr>
             <td>RC NO:</td>
-            <td><input type="text" name="RC No"></td>
+            <td><input type="text" name="RC_NO"></td>
         </tr>
         <tr>
             <td>Upload bus photo:</td>
-            <td><input type="image" value=" " name="Photo"></td>
+            <td><input type="file" name="Photo"></td>
+        </tr>
+        <tr>
+            <td>Status</td>
+            <td>
+                <select name="Status">
+                    <option value="Active">Active</option>
+                    <option value="Inactive">Inactive</option>
+                </select>
+            </td>
         </tr>
         <tr>
             <td align="center" colspan="2"><input type="submit" value="ADD" ></td>
         </tr>
     </table>
+    </form>
 </body>
 </html>

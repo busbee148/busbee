@@ -26,10 +26,7 @@ urlpatterns = [
     path('AdminHome',AdminHome.as_view(),name="AdminHome"),
     path('OwnerHome',OwnerHome.as_view(),name="OwnerHome"),
     path('OwnerRegistration',OwnerRegistration.as_view(),name="OwnerRegistration"),
-    path('DriverRegister',DriverRegister.as_view(),name="DriverRegister"),
-    path('DriverHome',DriverHome.as_view(),name="DriverHome"),
     path('ConducterHome',ConducterHome.as_view(),name="ConducterHome"),
-    path('AddBusDriver',AddBusDriver.as_view(), name="AddBusDriver"),
     path('AddBusRoute',AddBusRoute.as_view(), name="AddBusRoute"),
     path('ViewBusRoutes',ViewBusRoutes.as_view(), name="ViewBusRoutes"),
     path('AddBusStop',AddBusStop.as_view(), name="AddBusStop"),
@@ -43,15 +40,13 @@ urlpatterns = [
     path('BlockBus',BlockBus.as_view(),name="BlockBus"),
     path('BlockBuss/<int:bus_id>',BlockBuss.as_view(),name='BlockBuss'),
     path('UnblockBus/<int:bus_id>',UnblockBus.as_view(),name='UnblockBus'),
-    path('EditBusDriver/<int:dr_id>',EditBusDriver.as_view(),name="EditBusDriver"),
-    path('DeleteBusDriver/<int:lid>',DeleteBusDriver.as_view(),name="DeleteBusDriver"),
     path('FeedBack',FeedBack.as_view(),name="FeedBack"),
+    path('OwnerRegistration',OwnerRegistration.as_view(),name="OwnerRegistration"),
     path('ManageOwner',ManageOwner.as_view(),name="ManageOwner"),
     path('ManageOwner1',ManageOwner1.as_view(),name="ManageOwner1"),
     path('VVBR',VVBR.as_view(),name="VVBR"),
     path('ApproveVVBR/<int:lid>',ApproveVVBR.as_view(),name="ApproveVVBR"),
     path('RejectVVBR/<int:lid>',RejectVVBR.as_view(),name="RejectVVBR"),
-    path('ViewBusDriver',ViewBusDriver.as_view(),name="ViewBusDriver"),
     path('ViewComplaint',ViewComplaint.as_view(),name="ViewComplaint"),
     path('ComplaintReply/<int:c_id>',ComplaintReply.as_view(),name="ComplaintReply"),
     path('ViewOwner',ViewOwner.as_view(),name="ViewOwner"),
@@ -60,6 +55,7 @@ urlpatterns = [
     
     # //////////////////////////////////  BUSDRIVER ///////////////////////////////////////////////
 
+    path('DriverHome',DriverHome.as_view(),name="DriverHome"),
     path('TripStatus',TripStatus.as_view(),name="TripStatus"),
 
     # ///////////////////////////////////////////  CONDUCTER ///////////////////////////////////////
@@ -67,10 +63,16 @@ urlpatterns = [
     
     #//////////////////////////////////////////  OWNER  ////////////////////////////////////////// 
     path('AddBus',AddBus.as_view(),name="AddBus"),
-    path('OwnerRegistration',OwnerRegistration.as_view(),name="OwnerRegistration"),
+    path('ViewBusDriver',ViewBusDriver.as_view(),name="ViewBusDriver"),
+    path('DriverRegister',DriverRegister.as_view(),name="DriverRegister"),
+    path('EditBusDriver/<int:dr_id>',EditBusDriver.as_view(),name="EditBusDriver"),
+    path('DeleteBusDriver/<int:lid>',DeleteBusDriver.as_view(),name="DeleteBusDriver"),
     path('TrackBus',TrackBus.as_view(),name="TrackBus"),
     path('ViewBus',ViewBus.as_view(),name="ViewBus"),
-    path('ViewBusDrivers',ViewBusDrivers.as_view(),name="ViewBusDrivers"),
+    path('DeleteBus/<int:bid>',DeleteBus.as_view(),name="DeleteBus"),
     path('ViewBusRoute',ViewBusRoute.as_view(),name="ViewBusRoute"),
     path('ViewConducter',ViewConducter.as_view(),name="ViewConducter"),
+    path('AddConducter',AddConducter.as_view(),name="AddConducter"),
+    path('DeleteConducter/<int:lid>',DeleteConducter.as_view(),name="DeleteConducter"),
+    path('EditConducter/<int:dr_id>',EditConducter.as_view(),name="EditConducter"),
     ]

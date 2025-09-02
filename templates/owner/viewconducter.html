@@ -22,9 +22,13 @@
             <td> {{i.Age}}</td>
             <td>{{i.Contact_NO}}</td>
             <td>{{i.Address}}</td>
-            <td><input type="submit" value="ADD"><br><input type="submit" value="DELETE"></td>
+            <td>
+                <a href="/DeleteConducter/{{ i.LOGIN.id }}">Delete</a><br>
+                <a href="/EditConducter/{{ i.id }}">Edit</a>
+            </td>
     </tr>
     {% endfor %}
    </table> 
+        <a href="/AddConducter">Add</a>
 </body>
 </html>

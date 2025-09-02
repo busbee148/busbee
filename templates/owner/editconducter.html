@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit bus driver</title>
+</head>
+<body>
+    
+    <form method="post">
+        {% csrf_token %}
+             <h2><center>Edit Bus Driver</center></h2>
+    <table>
+            <tr>
+                <td>Conducter name:</td>
+                <td><input type="text" name="Name" value="{{ val.Name }}"></td>
+            </tr>
+            <tr>
+                <td>Age</td>
+                <td><input type="text" size="2" name="Age" value="{{val.Age}}"></td>
+                <td>Gender</td>
+                <td><input type="radio" name="Gender" value="f" {% if val.Gender == 'f' %} checked {% endif %}>F
+                    <input type="radio"name="Gender" value="m" {% if val.Gender == 'm' %} checked {% endif %}>M
+                </td>
+            </tr>
+            <tr>
+                <td>ContactNo:</td>
+                <td><input type="text" name="Contact_NO" value="{{val.Contact_NO}}"></td>
+            </tr>
+            <tr>
+                <td>Address:</td>
+                <td><textarea name="Address">{{val.Address}}</textarea></td>
+            </tr>
+            <tr >
+                 
+                <td align="center" colspan="2">
+                <input type="submit" name="Edit" value="Edit">
+                </td>
+              
+            </tr>
+    </table>
+    </form>
+</body>
+</html>

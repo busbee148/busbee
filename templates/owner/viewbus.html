@@ -13,6 +13,7 @@
             <th>Capacity</th>
             <th>RC NO</th>
             <th>Photo</th>
+            <th> </th>
         </tr>
         {% for i in val %}
         <tr>
@@ -20,9 +21,13 @@
             <td>{{i.Bus_NO}} </td>
             <td> {{i.Capacity}}</td>
             <td>{{i.RC_NO}}</td>
-            <td><img src="{{i.Photo.url}}"></td>
+            <td><img src="{{i.Photo.url}}" width="100" height="100"></td>
+            <td>
+                 <a href="/DeleteBus/{{ i.id }}">Delete</a>
+            </td>
         </tr>
         {% endfor %}
     </table>
+        <a href="/AddBus">ADD</a>
 </body>
 </html>

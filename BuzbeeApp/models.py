@@ -47,7 +47,7 @@ class CondoctorTable(models.Model):
 
 class BusTable(models.Model):
      Busname = models.CharField(max_length=30,blank=True,null=True)
-     Bus_NO = models.CharField(max_length=12,blank=True,null=True)
+     Bus_NO = models.CharField(max_length=20,blank=True,null=True)
      Capacity = models.IntegerField(blank=True,null=True)
      RC_NO = models.CharField(max_length=15,blank=True,null=True)
      Photo = models.FileField(blank=True,null=True)
@@ -64,6 +64,13 @@ class BusStopTable(models.Model):
     Landmark = models.CharField(max_length=30,blank=True,null=True)
     Photo = models.FileField('busstoppic/',blank=True,null=True)
     BUSROUTE = models.ForeignKey(BusRouteTable, on_delete=models.CASCADE,blank=True,null=True)
+
+class AssignTable(models.Model):
+    BUS = models.ForeignKey(BusTable, on_delete=models.CASCADE,blank=True,null=True)
+    DRIVER = models.ForeignKey(DriverTable, on_delete=models.CASCADE,blank=True,null=True)
+    Conducter = models.ForeignKey(CondoctorTable, on_delete=models.CASCADE,blank=True,null=True)
+    Status = models.CharField(max_length=20, null=True, blank=True)
+    Date = models.DateField(auto_now_add=True)
 
 class AssignBusRouteTable(models.Model):
     BUS = models.ForeignKey(BusTable, on_delete=models.CASCADE,blank=True,null=True)

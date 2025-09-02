@@ -22,7 +22,7 @@
             <td>{{i.Capacity}} </td>
            
             <td> {{i.RC_NO}}</td>
-            <td> <img src={{i.Photo.url}}></td>
+            <td> <img src={{i.Photo.url}}  width="100" height="100"></td>
             <td>
                 {% if i.Status == "pending" %}
                     <a href="/ApproveBusDetail/{{i.id}}">Approve</a>
