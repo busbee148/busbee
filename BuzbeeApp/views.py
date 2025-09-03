@@ -221,6 +221,7 @@ class RejectOwner(View):
         obj.LOGIN.UserType="rejected"
         obj.LOGIN.save()
         return redirect('ViewOwner')
+    
 class BlockBus(View):
     def get(self,request):
         obj=BusTable.objects.all()
@@ -342,6 +343,27 @@ class EditConducter(View):
         if form.is_valid():
             form.save()
             return HttpResponse('''<script>alert('Edited Succcesfully');window.location='/ViewConducter';</script>''')
+        
+class ViewAssignedBus(View):
+    def get(self,request):
+        obj=AssignTable.objects.all()
+        return render(request,"owner/viewassignedbus.html",{'val':obj})    
+    
+class AssignBus(View):
+    def get(self,request):
+        obj= AssignTable.objects.all()
+        return render(request,"owner/assignbus.html",{'val':obj})
+    def post(self,request):
+        s=Assign_BusForm(request.POST)
+        if s.is_valid():
+            s.save()
+            return redirect('ViewAssignedBus') 
+
+class DeleteAssignedBus(View):
+    def get(self,request, lid):
+        obj = AssignTable.objects.get(id=lid)
+        obj.delete()
+        return redirect('ViewAssignedBus') 
 
 class LogoutView(View):
     def get(self, request):

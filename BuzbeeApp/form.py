@@ -37,3 +37,7 @@ class Add_ConducterForm(ModelForm):
         model = CondoctorTable
         fields = ['Name','Age','Contact_NO','Gender','Address']
 
+class Assign_BusForm(ModelForm):
+    class Meta:
+        model = AssignTable
+        fields = ['BUS','DRIVER','Conducter']

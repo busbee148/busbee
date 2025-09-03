@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>addbusstop</title>
+</head>
+<body>
+     <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+    <table>
+       
+        <tr>
+            <td>Bus:</td>
+            <td><select>
+            
+                <option>-- please select an option --</option>
+                {% for i in val %}
+                <option value="{{i.id}}">{{ i.BUS.Busname}} - {{i.BUS.Bus_NO}}</option>
+                {% endfor %}
+            </select></td>
+        </tr>
+        <tr>
+            <td>Driver:</td>
+            <td><select>
+            
+                <option>-- please select an option --</option>
+                {% for i in val %}
+                <option value="{{i.id}}">{{ i.DRIVER.Driver_Name}} - {{ i.DRIVER.Licence_NO}}</option>
+                {% endfor %}
+            </select></td>
+        </tr>
+        <tr>
+            <td>Conducter:</td>
+            <td><select>
+            
+                <option>-- please select an option --</option>
+                {% for i in val %}
+                <option value="{{i.id}}">{{ i.Conducter.Name}} - {{ i.Conducter.Contact_NO}}</option>
+                {% endfor %}
+            </select></td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Assign"></td>
+        </tr>
+    </table>
+    </form>
+</body>
+</html>

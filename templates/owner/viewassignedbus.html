@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>view & select bus route</title>
+</head>
+<body>
+    <table border="1">
+        <tr>
+            <th>Bus Name</th>
+            <th>Bus NO</th>
+            <th>Driver Name</th>
+            <th>Licence NO</th>
+            <th>Conducter Name</th>
+            <th>Contact NO</th>
+            <th></th>
+        </tr>
+        {% for i in val %}
+        <tr>
+            <td>{{i.BUS.Busname}}</td>
+            <td>{{i.BUS.Bus_NO}}</td>
+            <td>{{i.DRIVER.Driver_Name}}</td>
+            <td>{{i.DRIVER.Licence_NO}}</td>
+            <td>{{i.Conducter.Name}}</td>
+            <td>{{i.Conducter.Contact_NO}}</td>
+            <td>
+                <a href="DeleteAssignedBus/{{ i.id }}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+             <a href="/AssignBus">Assign</a>
+</body>
+</html>

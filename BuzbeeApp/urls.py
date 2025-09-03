@@ -75,4 +75,7 @@ urlpatterns = [
     path('AddConducter',AddConducter.as_view(),name="AddConducter"),
     path('DeleteConducter/<int:lid>',DeleteConducter.as_view(),name="DeleteConducter"),
     path('EditConducter/<int:dr_id>',EditConducter.as_view(),name="EditConducter"),
+    path('ViewAssignedBus',ViewAssignedBus.as_view(),name="ViewAssignedBus"),
+    path('AssignBus',AssignBus.as_view(),name="AssignBus"),
+    path('DeleteAssignedBus/<int:lid>',DeleteAssignedBus.as_view(),name="DeleteAssignedBus"),
     ]
