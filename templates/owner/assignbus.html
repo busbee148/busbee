@@ -12,31 +12,31 @@
        
         <tr>
             <td>Bus:</td>
-            <td><select>
+            <td><select name="BUS">
             
                 <option>-- please select an option --</option>
-                {% for i in val %}
-                <option value="{{i.id}}">{{ i.BUS.Busname}} - {{i.BUS.Bus_NO}}</option>
+                {% for i in val1 %}
+                <option value="{{i.id}}">{{ i.Busname}} - {{i.Bus_NO}}</option>
                 {% endfor %}
             </select></td>
         </tr>
         <tr>
             <td>Driver:</td>
-            <td><select>
+            <td><select name="DRIVER">
             
                 <option>-- please select an option --</option>
-                {% for i in val %}
-                <option value="{{i.id}}">{{ i.DRIVER.Driver_Name}} - {{ i.DRIVER.Licence_NO}}</option>
+                {% for i in val2 %}
+                <option value="{{i.id}}">{{ i.Driver_Name}} - {{ i.Licence_NO}}</option>
                 {% endfor %}
             </select></td>
         </tr>
         <tr>
             <td>Conducter:</td>
-            <td><select>
+            <td><select name="Conducter">
             
                 <option>-- please select an option --</option>
-                {% for i in val %}
-                <option value="{{i.id}}">{{ i.Conducter.Name}} - {{ i.Conducter.Contact_NO}}</option>
+                {% for i in val3 %}
+                <option value="{{i.id}}">{{ i.Name}} - {{ i.Contact_NO}}</option>
                 {% endfor %}
             </select></td>
         </tr>

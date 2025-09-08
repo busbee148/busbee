@@ -16,6 +16,15 @@ class PassangerTable(models.Model):
     Address = models.CharField(max_length=50, blank=True, null=True)
     LOGIN = models.ForeignKey(LoginTable, on_delete=models.CASCADE, null=True, blank=True)
 
+class OwnerTable(models.Model):
+    Name = models.CharField(max_length=30,blank=True,null=True)
+    Age = models.IntegerField(blank=True,null=True)
+    Contact_NO = models.BigIntegerField(blank=True,null=True)
+    Address = models.CharField(max_length=30, blank=True, null=True)
+    Gender = models.CharField(max_length=2,blank=True,null=True)
+    Email = models.CharField(max_length=30,blank=True,null=True)
+    LOGIN = models.ForeignKey(LoginTable, on_delete=models.CASCADE,blank=True,null=True)
+
 class DriverTable(models.Model):
     Driver_Name = models.CharField(max_length=30, blank=True, null=True)
     Address = models.CharField(max_length=30, blank=True, null=True)
@@ -27,18 +36,11 @@ class DriverTable(models.Model):
     Latitude =models.FloatField(blank=True,null=True)
     Longitude =models.FloatField(blank=True,null=True)
     LOGIN = models.ForeignKey(LoginTable, on_delete=models.CASCADE, null=True,blank=True)
-
-class OwnerTable(models.Model):
-    Name = models.CharField(max_length=30,blank=True,null=True)
-    Age = models.IntegerField(blank=True,null=True)
-    Contact_NO = models.BigIntegerField(blank=True,null=True)
-    Address = models.CharField(max_length=30, blank=True, null=True)
-    Gender = models.CharField(max_length=2,blank=True,null=True)
-    Email = models.CharField(max_length=30,blank=True,null=True)
-    LOGIN = models.ForeignKey(LoginTable, on_delete=models.CASCADE,blank=True,null=True)
-
+    OWNER = models.ForeignKey(OwnerTable, on_delete=models.CASCADE,blank=True,null=True)
+    
 class CondoctorTable(models.Model):
     LOGIN = models.ForeignKey(LoginTable, on_delete=models.CASCADE,blank=True,null=True)
+    OWNER = models.ForeignKey(OwnerTable, on_delete=models.CASCADE,blank=True,null=True)
     Name = models.CharField(max_length=30,blank=True,null=True)
     Age = models.IntegerField(blank=True,null=True)
     Contact_NO = models.BigIntegerField(blank=True,null=True)

@@ -53,6 +53,7 @@ class DriverRegister(View):
         print(form)
         if form.is_valid():
             f=form.save(commit=False)
+            f.OWNER=OwnerTable.objects.get(LOGIN_id=request.session['login_id'])
             f.LOGIN=LoginTable.objects.create(Username=request.POST['Username'],Password=request.POST['Password'],UserType='DRIVER')
             f.save()
             return HttpResponse('''<script>alert('succcesfully registered');window.location='/ViewBusDriver';</script>''')
@@ -279,7 +280,7 @@ class OwnerRegistration(View):
         print(form)
         if form.is_valid():
             f=form.save(commit=False)
-            f.LOGIN=BusTable.objects.create(Username=request.POST['Username'],Password=request.POST['Password'],UserType='pending')
+            f.LOGIN=LoginTable.objects.create(Username=request.POST['Username'],Password=request.POST['Password'],UserType='pending')
             f.save()
             return HttpResponse('''<script>alert('succcesfully registered');window.location='/';</script>''')
 
@@ -322,6 +323,7 @@ class AddConducter(View):
         print(form)
         if form.is_valid():
             f=form.save(commit=False)
+            f.OWNER=OwnerTable.objects.get(LOGIN_id=request.session['login_id'])
             f.LOGIN=LoginTable.objects.create(Username=request.POST['Username'],Password=request.POST['Password'],UserType='DRIVER')
             f.save()
             return HttpResponse('''<script>alert('succcesfully registered');window.location='/ViewConducter';</script>''')
@@ -346,13 +348,60 @@ class EditConducter(View):
         
 class ViewAssignedBus(View):
     def get(self,request):
-        obj=AssignTable.objects.all()
+        obj=AssignTable.objects.filter(BUS__OWNER__LOGIN_id=request.session['login_id'])
         return render(request,"owner/viewassignedbus.html",{'val':obj})    
     
+# class AssignBus(View):
+#     def get(self,request):
+#         assign_obj =  AssignTable.objects.filter(BUS__OWNER__LOGIN_id=request.session['login_id']) 
+#         if assign_obj:
+#             print("-----------iff---", assign_obj)
+#             for i in assign_obj:
+#                 print("bud_id------------", i.BUS.id)
+#                 obj1=BusTable.objects.exclude(id=i.BUS.id).filter(OWNER__LOGIN_id=request.session['login_id'])
+#                 print("-------obj1-------->", obj1)
+#                 obj2=DriverTable.objects.exclude(id=i.DRIVER.id).filter(OWNER__LOGIN_id=request.session['login_id'])
+#                 obj3=CondoctorTable.objects.exclude(id=i.Conducter.id).filter(OWNER__LOGIN_id=request.session['login_id'])
+#         else:
+#                 print("------else----")
+#                 obj1=BusTable.objects.filter(OWNER__LOGIN_id=request.session['login_id'])
+#                 obj2=DriverTable.objects.filter(OWNER__LOGIN_id=request.session['login_id'])
+#                 obj3=CondoctorTable.objects.filter(OWNER__LOGIN_id=request.session['login_id'])
+
+#         return render(request,"owner/assignbus.html",{'val1':obj1,'val2':obj2,'val3':obj3})
+
 class AssignBus(View):
-    def get(self,request):
-        obj= AssignTable.objects.all()
-        return render(request,"owner/assignbus.html",{'val':obj})
+    def get(self, request):
+        login_id = request.session.get('login_id')
+        
+        # Get all assigned objects for this owner
+        assigned_objs = AssignTable.objects.filter(BUS__OWNER__LOGIN_id=login_id)
+
+        if assigned_objs.exists():
+            print("-----------Assigned Objects---", assigned_objs)
+
+            # Collect assigned IDs
+            assigned_bus_ids = assigned_objs.values_list('BUS__id', flat=True)
+            assigned_driver_ids = assigned_objs.values_list('DRIVER__id', flat=True)
+            assigned_conductor_ids = assigned_objs.values_list('Conducter__id', flat=True)
+
+            # Exclude assigned ones
+            obj1 = BusTable.objects.filter(OWNER__LOGIN_id=login_id).exclude(id__in=assigned_bus_ids)
+            obj2 = DriverTable.objects.filter(OWNER__LOGIN_id=login_id).exclude(id__in=assigned_driver_ids)
+            obj3 = CondoctorTable.objects.filter(OWNER__LOGIN_id=login_id).exclude(id__in=assigned_conductor_ids)
+
+        else:
+            print("------No Assignments Found----")
+            # If nothing is assigned yet, show all
+            obj1 = BusTable.objects.filter(OWNER__LOGIN_id=login_id)
+            obj2 = DriverTable.objects.filter(OWNER__LOGIN_id=login_id)
+            obj3 = CondoctorTable.objects.filter(OWNER__LOGIN_id=login_id)
+
+        return render(request, "owner/assignbus.html", {
+            'val1': obj1,
+            'val2': obj2,
+            'val3': obj3
+        })
     def post(self,request):
         s=Assign_BusForm(request.POST)
         if s.is_valid():
