@@ -21,7 +21,7 @@
             <td>{{ i.Bus_NO }}</td>
             <td>{{ i.Capacity }}</td>
             <td>{{ i.RC_NO }}</td>
-            <td><img src="{{ i.Photo.url }}"> </td>
+            <td><img src="{{ i.Photo.url }}"  width="100" height="100"> </td>
             <td>
                 {% if i.Status == "active" %}
                     <a href="/BlockBuss/{{ i.id }}">Block</a>

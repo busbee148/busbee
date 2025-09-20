@@ -82,6 +82,12 @@ class AssignBusRouteTable(models.Model):
     End_Time = models.TimeField()
     Status = models.CharField(max_length=20, null=True, blank=True)
 
+class TimeTable(models.Model):
+    ASSIGNBUSROUTE = models.ForeignKey(AssignBusRouteTable, on_delete=models.CASCADE,blank=True,null=True)
+    BUSSTOP = models.ForeignKey(BusStopTable, on_delete=models.CASCADE,blank=True,null=True)
+    Time = models.TimeField()     
+    Status = models.CharField(max_length=20, null=True, blank=True)   
+        
 class FeedbackTable(models.Model):
     USER = models.ForeignKey(PassangerTable, on_delete=models.CASCADE,blank=True,null=True)
     BUS = models.ForeignKey(BusTable, on_delete=models.CASCADE,blank=True,null=True)
