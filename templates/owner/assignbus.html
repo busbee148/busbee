@@ -3,47 +3,125 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>addbusstop</title>
+    <title>Assign Bus</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: #eef3f9;
+            margin: 0;
+            padding: 40px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 25px;
+        }
+
+        table {
+            margin: auto;
+            background: #fff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+            border: 1px solid #ddd;
+        }
+
+        td {
+            padding: 12px 10px;
+            font-size: 14px;
+            color: #333;
+        }
+
+        select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 14px;
+            background: #fff;
+            cursor: pointer;
+            transition: border 0.2s ease;
+        }
+
+        select:focus {
+            border-color: #1a73e8;
+            outline: none;
+            box-shadow: 0 0 5px rgba(26,115,232,0.3);
+        }
+
+        input[type="submit"] {
+            background: #1a73e8;
+            color: #fff;
+            padding: 8px 20px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background: #1558b0;
+            box-shadow: 0 3px 8px rgba(26,115,232,0.3);
+        }
+
+        td[colspan="2"] {
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-     <form method="post" enctype="multipart/form-data">
+
+    <h1>Assign Bus</h1>
+
+    <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
-    <table>
-       
-        <tr>
-            <td>Bus:</td>
-            <td><select name="BUS">
-            
-                <option>-- please select an option --</option>
-                {% for i in val1 %}
-                <option value="{{i.id}}">{{ i.Busname}} - {{i.Bus_NO}}</option>
-                {% endfor %}
-            </select></td>
-        </tr>
-        <tr>
-            <td>Driver:</td>
-            <td><select name="DRIVER">
-            
-                <option>-- please select an option --</option>
-                {% for i in val2 %}
-                <option value="{{i.id}}">{{ i.Driver_Name}} - {{ i.Licence_NO}}</option>
-                {% endfor %}
-            </select></td>
-        </tr>
-        <tr>
-            <td>Conducter:</td>
-            <td><select name="Conducter">
-            
-                <option>-- please select an option --</option>
-                {% for i in val3 %}
-                <option value="{{i.id}}">{{ i.Name}} - {{ i.Contact_NO}}</option>
-                {% endfor %}
-            </select></td>
-        </tr>
-        <tr>
-            <td><input type="submit" value="Assign"></td>
-        </tr>
-    </table>
+        <table>
+            <tr>
+                <td>Bus:</td>
+                <td>
+                    <select name="BUS">
+                        <option>-- please select an option --</option>
+                        {% for i in val1 %}
+                        <option value="{{i.id}}">{{ i.Busname }} - {{ i.Bus_NO }}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Driver:</td>
+                <td>
+                    <select name="DRIVER">
+                        <option>-- please select an option --</option>
+                        {% for i in val2 %}
+                        <option value="{{i.id}}">{{ i.Driver_Name }} - {{ i.Licence_NO }}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Conductor:</td>
+                <td>
+                    <select name="Conducter">
+                        <option>-- please select an option --</option>
+                        {% for i in val3 %}
+                        <option value="{{i.id}}">{{ i.Name }} - {{ i.Contact_NO }}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <input type="submit" value="Assign">
+                </td>
+            </tr>
+        </table>
     </form>
+
 </body>
 </html>

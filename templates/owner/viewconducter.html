@@ -3,32 +3,142 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View and approve conducter</title>
+    <title>View and Approve Conducter</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: #eef3f9;
+            margin: 0;
+            padding: 40px;
+            color: #333;
+        }
+
+        /* Heading */
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+
+        /* Container for table and Add button */
+        .table-container {
+            width: 90%;
+            margin: auto;
+        }
+
+        .table-header {
+            display: flex;
+            justify-content: flex-end; /* Add button right */
+            margin-bottom: 10px;
+        }
+
+        .btn-add {
+            background: #1a73e8;
+            color: #fff;
+            padding: 10px 18px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-add:hover {
+            background: #1558b0;
+            box-shadow: 0 3px 8px rgba(46,204,113,0.3);
+        }
+
+        table {
+            width: 100%;
+            background: #fff;
+            border-collapse: collapse;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border: 1px solid #dcdfe3;
+        }
+
+        th, td {
+            padding: 12px 10px;
+            font-size: 14px;
+            color: #2c3e50;
+            border: 1px solid #dcdfe3;
+            text-align: center;
+        }
+
+        th {
+            background: #f7f9fc;
+            font-weight: 600;
+        }
+
+        /* Action buttons */
+        .btn {
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            margin: 3px;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .btn-delete {
+            background: #e74c3c;
+            color: #fff;
+        }
+
+        .btn-delete:hover {
+            background: #c0392b;
+            box-shadow: 0 3px 8px rgba(231,76,60,0.3);
+        }
+
+        .btn-edit {
+            background: #1a73e8;
+            color: #fff;
+        }
+
+        .btn-edit:hover {
+            background: #1558b0;
+            box-shadow: 0 3px 8px rgba(26,115,232,0.3);
+        }
+    </style>
 </head>
 <body>
-   <table border="1">
-    <tr>
-        <th>conducter name</th>
-        <th>Gender</th>
-        <th>Age</th>
-        <th>Contact NO</th>
-        <th>Address</th>
-        <th> </th>
-    </tr>
-    {% for i in val %}
-    <tr>
-            <td> {{i.Name}}</td>
-            <td>{{i.Gender}} </td>
-            <td> {{i.Age}}</td>
-            <td>{{i.Contact_NO}}</td>
-            <td>{{i.Address}}</td>
-            <td>
-                <a href="/DeleteConducter/{{ i.LOGIN.id }}">Delete</a><br>
-                <a href="/EditConducter/{{ i.id }}">Edit</a>
-            </td>
-    </tr>
-    {% endfor %}
-   </table> 
-        <a href="/AddConducter">Add</a>
+
+    <!-- Heading -->
+    <h1>View Conducter</h1>
+
+    <div class="table-container">
+        <!-- Add button top-right -->
+        <div class="table-header">
+            <a href="/AddConducter" class="btn-add">Add</a>
+        </div>
+
+        <table>
+            <tr>
+                <th>Conducter Name</th>
+                <th>Gender</th>
+                <th>Age</th>
+                <th>Contact NO</th>
+                <th>Address</th>
+                <th>Actions</th>
+            </tr>
+            {% for i in val %}
+            <tr>
+                <td>{{ i.Name }}</td>
+                <td>{{ i.Gender }}</td>
+                <td>{{ i.Age }}</td>
+                <td>{{ i.Contact_NO }}</td>
+                <td>{{ i.Address }}</td>
+                <td>
+                    <a href="/DeleteConducter/{{ i.LOGIN.id }}" class="btn btn-delete">Delete</a>
+                    <a href="/EditConducter/{{ i.id }}" class="btn btn-edit">Edit</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
 </body>
 </html>

@@ -5,55 +5,83 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Owner</title>
 <style>
+  h1{
+    text-align: center;
+  }
     body {
       font-family: "Segoe UI", Arial, sans-serif;
-      background: #f4f6f7;
+      background: #eef3f9; /* light background */
+      margin: 0;
       padding: 40px;
-    }
-table,td,th{
-    border:1px solid black;
-    border-collapse: collapse;
-}
-    .action-buttons {
-      display: flex;
-      gap: 15px;
-      justify-content: center;
-      margin-top: 30px;
+      color: #333;
     }
 
-    .btn {
-      padding: 10px 20px;
+    form {
+      max-width: 700px;
+      margin: auto;
+      margin-top: 70px;
+      background: #fff; /* white card */
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 20px;
+    }
+
+    table {
+      width: 80%;
+      background: #fff;
+      margin: auto;
+      border-collapse: collapse;
+      border: 1px solid #dcdfe3; /* light outer border */
+    }
+
+    th, td {
+      padding: 12px 10px;
+      font-size: 14px;
+      color: #2c3e50;
+      border: 1px solid #dcdfe3; /* borders for both th and td */
+      text-align: left;
+    }
+
+    th {
+      background: #f7f9fc;
+      font-weight: 600;
+    }
+
+    /* Smaller buttons */
+    button {
+      background: #1a73e8;
+      color: #fff;
+      padding: 8px 14px;     /* smaller size */
       border: none;
       border-radius: 6px;
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.3s ease;
-      text-transform: uppercase;
+      margin: 0 6px;
     }
 
-    .btn-approve {
-      background: #1a73e8;
-      color: #fff;
-    }
-
-    .btn-approve:hover {
+    button:hover {
       background: #1558b0;
-      box-shadow: 0 4px 10px rgba(26,115,232,0.3);
+      box-shadow: 0 3px 8px rgba(26,115,232,0.3);
     }
 
     .btn-reject {
       background: #e74c3c;
-      color: #fff;
     }
 
     .btn-reject:hover {
       background: #c0392b;
-      box-shadow: 0 4px 10px rgba(231,76,60,0.3);
+      box-shadow: 0 3px 8px rgba(231,76,60,0.3);
     }
-    </style>
-</head>
-<body>
+  </style>
+  <h1>Verify Bus Details</h1>
     <table >
         <tr>
             <th>Bus Name</th>

@@ -3,7 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit bus driver</title>
+    <title>Edit bus driver</title> 
+     <style>
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: #eef3f9;
+      margin: 0;
+      padding: 40px;
+      color: #333;
+    }
+
+    form {
+      max-width: 700px;
+      margin: auto;
+      margin-top: 50px;
+      background: #fff;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    td {
+      padding: 12px 8px;
+      font-size: 14px;
+      color: #2c3e50;
+      vertical-align: middle;
+    }
+
+    input[type="text"], textarea, select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccd3dc;
+      border-radius: 6px;
+      font-size: 14px;
+      outline: none;
+    }
+
+    input[type="text"]:focus, textarea:focus, select:focus {
+      border-color: #1a73e8;
+      box-shadow: 0 0 4px rgba(26,115,232,0.2);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 60px;
+    }
+
+    input[type="radio"] {
+      margin: 0 6px 0 12px;
+    }
+
+    /* Bigger and centered submit button */
+    input[type="submit"] {
+      background: #1a73e8;
+      color: #fff;
+      padding: 14px 28px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s;
+      display: block;
+      margin: 20px auto 0; /* center align */
+      width: 25%;
+    }
+
+    input[type="submit"]:hover {
+      background: #1558b0;
+    }
+  </style>
+
 </head>
 <body>
     
@@ -21,7 +102,8 @@
             </tr>
             <tr>
                 <td>Age</td>
-                <td><input type="text" size="2" name="Age" value="{{val.Age}}"></td>
+                <td><input type="text" size="2" name="Age" value="{{val.Age}}"></td></tr>
+                <tr>
                 <td>Gender</td>
                 <td><input type="radio" name="Gender" value="f" {% if val.Gender == 'f' %} checked {% endif %}>F
                     <input type="radio"name="Gender" value="m" {% if val.Gender == 'm' %} checked {% endif %}>M

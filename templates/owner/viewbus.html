@@ -3,31 +3,134 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View registered buses</title>
+    <title>View Registered Buses</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: #eef3f9;
+            margin: 0;
+            padding: 40px;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+
+        /* Container for table and top-right Add button */
+        .table-container {
+            width: 90%;
+            margin: auto;
+        }
+
+        .table-header {
+            display: flex;
+            justify-content: flex-end; /* button on the right */
+            margin-bottom: 10px;
+        }
+
+        .btn-add {
+            background: #1a73e8;
+            color: #fff;
+            padding: 10px 15px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .btn-add:hover {
+            background: #1558b0;
+            box-shadow: 0 3px 8px rgba(26,115,232,0.3);
+        }
+
+        table {
+            width: 100%;
+            background: #fff;
+            border-collapse: collapse;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border: 1px solid #dcdfe3;
+        }
+
+        th, td {
+            padding: 12px 10px;
+            font-size: 14px;
+            color: #2c3e50;
+            border: 1px solid #dcdfe3;
+            text-align: center;
+        }
+
+        th {
+            background: #f7f9fc;
+            font-weight: 600;
+        }
+
+        img {
+            border-radius: 6px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        .btn-delete {
+            background: #e74c3c;
+            color: #fff;
+            padding: 7px 14px;
+            border: none;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+            margin: 3px;
+        }
+
+        .btn-delete:hover {
+            background: #c0392b;
+            box-shadow: 0 3px 8px rgba(231,76,60,0.3);
+        }
+    </style>
 </head>
 <body>
-    <table border="1">
-        <tr>
-            <th>Bus name</th>
-            <th>Bus NO</th>
-            <th>Capacity</th>
-            <th>RC NO</th>
-            <th>Photo</th>
-            <th> </th>
-        </tr>
-        {% for i in val %}
-        <tr>
-            <td> {{i.Busname}}</td>
-            <td>{{i.Bus_NO}} </td>
-            <td> {{i.Capacity}}</td>
-            <td>{{i.RC_NO}}</td>
-            <td><img src="{{i.Photo.url}}" width="100" height="100"></td>
-            <td>
-                 <a href="/DeleteBus/{{ i.id }}">Delete</a>
-            </td>
-        </tr>
-        {% endfor %}
-    </table>
-        <a href="/AddBus">ADD</a>
+
+    <!-- Heading at the top -->
+    <h1>View Bus</h1>
+
+    <div class="table-container">
+        <!-- Add button top-right -->
+        <div class="table-header">
+            <a href="/AddBus" class="btn-add">ADD</a>
+        </div>
+
+        <table>
+            <tr>
+                <th>Bus Name</th>
+                <th>Bus NO</th>
+                <th>Capacity</th>
+                <th>RC NO</th>
+                <th>Photo</th>
+                <th></th>
+            </tr>
+            {% for i in val %}
+            <tr>
+                <td>{{i.Busname}}</td>
+                <td>{{i.Bus_NO}}</td>
+                <td>{{i.Capacity}}</td>
+                <td>{{i.RC_NO}}</td>
+                <td><img src="{{i.Photo.url}}" width="100" height="100"></td>
+                <td>
+                     <a href="/DeleteBus/{{ i.id }}" class="btn-delete">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
 </body>
 </html>

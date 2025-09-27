@@ -1,42 +1,167 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>view & select bus route</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>View & Select Bus Stop</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: #eef3f9;
+      margin: 0;
+      padding: 40px;
+      color: #333;
+    }
+
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 30px;
+    }
+
+    .table-container {
+      width: 80%;
+      margin: auto;
+    }
+
+    .table-header {
+      display: flex;
+      justify-content: flex-end; /* Add button right */
+      margin-bottom: 10px;
+    }
+
+    .btn-add {
+      background: #1a73e8;
+      color: #fff;
+      padding: 10px 18px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .btn-add:hover {
+      background: #1558b0;
+      box-shadow: 0 3px 8px rgba(26,115,232,0.3);
+    }
+
+    table {
+      width: 100%;
+      background: #fff;
+      border-collapse: collapse;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      border: 1px solid #dcdfe3;
+    }
+
+    th, td {
+      padding: 12px 10px;
+      font-size: 14px;
+      color: #2c3e50;
+      border: 1px solid #dcdfe3;
+      text-align: center;
+    }
+
+    th {
+      background: #f7f9fc;
+      font-weight: 600;
+    }
+
+    select {
+      padding: 8px 10px;
+      border: 1px solid #ccd3dc;
+      border-radius: 6px;
+      font-size: 14px;
+      outline: none;
+    }
+
+    select:focus {
+      border-color: #1a73e8;
+      box-shadow: 0 0 4px rgba(26,115,232,0.2);
+    }
+
+    .btn-search {
+      background: #1a73e8;
+      color: #fff;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-left: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-search:hover {
+      background: #1558b0;
+      box-shadow: 0 3px 8px rgba(26,115,232,0.3);
+    }
+
+    .btn-delete {
+      background: #e74c3c;
+      color: #fff;
+      padding: 6px 12px;
+      border: none;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      display: inline-block;
+    }
+
+    .btn-delete:hover {
+      background: #c0392b;
+      box-shadow: 0 3px 8px rgba(231,76,60,0.3);
+    }
+  </style>
 </head>
 <body>
-    <table border="1">
-        <form method="post" action="/SearchStop">
+
+  <h1>View Bus Stops</h1>
+
+  <div class="table-container">
+    <div class="table-header">
+      <a href="/AddBusStop" class="btn-add">Add</a>
+    </div>
+
+    <table>
+      <tr>
+        <td colspan="3">
+          <form method="post" action="/SearchStop">
             {% csrf_token %}
-        <tr>
-            <td>
-                <select name="route_id">
-                    <option value="0">-- please select a route--</option>
-                    {% for i in val1 %}
-                    <option value="{{i.id}}">{{ i.Source }} - {{ i.Destination }}</option>
-                    {% endfor %}
-                </select>
-                <input type="submit" value="Search">
-            </td>
-        </tr>
-        </form>
-        <tr>
-            
-            <th>Stop name</th>
-            <th>Landmark</th>
-            <th></th>
-        </tr>
-        {% for i in val %}
-        <tr>
-            <td>{{i.Stop_name}}</td>
-            <td>{{i.Landmark}}</td>
-            <td>
-                <a href="DeleteBusStop/{{ i.id }}">Delete</a>
-            </td>
-        </tr>
-        {% endfor %}
+            <select name="route_id">
+              <option value="0">-- please select a route--</option>
+              {% for i in val1 %}
+              <option value="{{i.id}}">{{ i.Source }} - {{ i.Destination }}</option>
+              {% endfor %}
+            </select>
+            <input type="submit" value="Search" class="btn-search">
+          </form>
+        </td>
+      </tr>
+
+      <tr>
+        <th>Stop Name</th>
+        <th>Landmark</th>
+        <th>Actions</th>
+      </tr>
+
+      {% for i in val %}
+      <tr>
+        <td>{{i.Stop_name}}</td>
+        <td>{{i.Landmark}}</td>
+        <td>
+          <a href="DeleteBusStop/{{ i.id }}" class="btn btn-delete">Delete</a>
+        </td>
+      </tr>
+      {% endfor %}
     </table>
-             <a href="/AddBusStop">ADD</a>
+  </div>
+
 </body>
 </html>

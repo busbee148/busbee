@@ -3,9 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DriverRegister</title>
+    <title>Add Conducter</title>
+     <style>
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: #eef3f9;
+            margin: 0;
+            padding: 40px;
+        }
+
+        h1 {
+            text-align: center;
+            color:#333;
+            margin-bottom: 10px;
+        }
+
+        p {
+            text-align: center;
+            color: #555;
+            margin-bottom: 25px;
+        }
+
+        table {
+            margin: auto;
+            background: #fff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+            border: 1px solid #ddd;
+        }
+
+        td {
+            padding: 10px;
+            font-size: 14px;
+            color: #333;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        textarea {
+            width: 100%;
+            padding: 6px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        input[type="radio"] {
+            margin-left: 10px;
+        }
+
+        input[type="submit"] {
+            background: #1a73e8;
+            color: #fff;
+            padding: 8px 20px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background: #1558b0;
+            box-shadow: 0 3px 8px rgba(26,115,232,0.3);
+        }
+    </style>
+    
 </head>
 <body>
+    <h1> Add Conducter</h1>
     <form method="post" action="">
         {% csrf_token %}
         <table>
@@ -24,6 +92,8 @@
             <tr>
                 <td>Age</td>
                 <td><input type="text" size="2" name="Age"></td>
+                </tr>
+                <tr>
                 <td>Gender</td>
                 <td>
                     <input type="radio" name="Gender" value="F">F

@@ -4,8 +4,90 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: #eef3f9; /* light blue-gray background */
+      margin: 0;
+      padding: 40px;
+      color: #333;
+    }
+
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 25px;
+    }
+
+    table {
+      width: 90%;
+      background: #fff;
+      margin: auto;
+      border-collapse: collapse;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      border: 1px solid #dcdfe3;
+    }
+
+    th, td {
+      padding: 12px 10px;
+      font-size: 14px;
+      color: #2c3e50;
+      border: 1px solid #dcdfe3;
+      text-align: center;
+    }
+
+    th {
+      background: #f7f9fc;
+      font-weight: 600;
+    }
+
+    /* Approve button */
+    .btn-approve {
+      background: #1a73e8;
+      color: #fff;
+      padding: 7px 14px;
+      border: none;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      display: inline-block;
+      margin: 3px;
+    }
+
+    .btn-approve:hover {
+      background: #1558b0;
+      box-shadow: 0 3px 8px rgba(26,115,232,0.3);
+    }
+
+    /* Reject button */
+    .btn-reject {
+      background: #e74c3c;
+      color: #fff;
+      padding: 7px 14px;
+      border: none;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      display: inline-block;
+      margin: 3px;
+    }
+
+    .btn-reject:hover {
+      background: #c0392b;
+      box-shadow: 0 3px 8px rgba(231,76,60,0.3);
+    }
+  </style>
 </head>
 <body>
+    <h1>Verify Bus Route</h1>
     <table border="1">
         <tr>
             <th>Bus number</th>
@@ -22,12 +104,12 @@
             </td>
             <td>
                 {% if i.Status == "pending" %}
-                    <a href="/ApproveVVBR/{{i.id}}">Approve</a>
-                    <a href="/RejectVVBR/{{i.id}}">Reject</a>
+                    <a href="/ApproveVVBR/{{i.id}}" class="btn btn-approve">Approve</a>
+                    <a href="/RejectVVBR/{{i.id}}" class="btn btn-reject">Reject</a>
                 {% elif  i.Status  == "accepted"%} 
-                    <a href="/RejectVVBR/{{i.id}}">Reject</a>
+                    <a href="/RejectVVBR/{{i.id}}" class="btn btn-reject">Reject</a>
                 {% elif i.Status == "rejected"%} 
-                    <a href="/ApproveVVBR/{{i.id}}">Approve</a>
+                    <a href="/ApproveVVBR/{{i.id}}" class="btn btn-approve">Approve</a>
                 {% endif %}
             </td>
         </tr>
