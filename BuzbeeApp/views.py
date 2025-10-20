@@ -1,7 +1,9 @@
 
+from urllib import response
 from django.shortcuts import get_object_or_404, redirect, render, HttpResponse
 from django.views import View
 
+from BuzbeeApp.serialisers import *
 from BuzbeeApp.form import *
 from BuzbeeApp.models import *
 
@@ -417,3 +419,75 @@ class DeleteAssignedBus(View):
 class LogoutView(View):
     def get(self, request):
         return HttpResponse('''<script>alert('Logout successfully');window.location='/'</script>''')
+    
+ #////////////////////////////      Passenger    ///////////////////////////////////////////
+from rest_framework.views import APIView
+from rest_framework import status
+from rest_framework.response import Response
+
+class PassangerView(APIView):
+    def post(self, request):
+        print("##################### Incoming Data #####################")
+        print(request.data)
+
+        # Normalize gender input
+        gender_map = {'Male': 'M', 'Female': 'F', 'Other': 'O'}
+        data = request.data.copy()
+        gender_value = data.get('Gender')
+        if gender_value in gender_map:
+            data['Gender'] = gender_map[gender_value]
+
+        # Create serializers with cleaned data
+        passenger_serializer = PassangerSerializer(data=data)
+        login_serializer = LoginSerializer(data=data)
+
+        if passenger_serializer.is_valid() and login_serializer.is_valid():
+            login_profile = login_serializer.save(UserType='Passanger')
+            passenger_serializer.save(LOGIN=login_profile)
+            return Response(
+                {
+                    "message": "Passenger registered successfully",
+                    "data": passenger_serializer.data
+                },
+                status=status.HTTP_201_CREATED
+            )
+
+        print("Passenger Errors:", passenger_serializer.errors)
+        print("Login Errors:", login_serializer.errors)
+        return Response(
+            {
+                "LoginErrors": login_serializer.errors,
+                "PassengerErrors": passenger_serializer.errors,
+            },
+            status=status.HTTP_400_BAD_REQUEST
+        )
+
+
+class LoginPageAPI(APIView):
+    def post(self,request):
+        print("##############")
+        response_dict={}
+
+        # get data from the request
+        Username= request.data.get("Username")
+        Password = request.data.get("Password")
+        print("$$$$$$$$$$$$$$$$$",Username)
+        #Validate input
+        if not Username or not Password:
+            response_dict["Message"]="failed"
+            return Response(response_dict,status=status.HTTP_400_BAD_REQUEST)
+        
+        #fetch the user from login table
+        T_user=LoginTable.objects.filter(Username=Username,Password=Password).first()
+        print("%%%%%%%%%%%%%%%%%%%%",T_user)
+
+        if not T_user:
+            response_dict["Message"]="failed"
+            return Response(response_dict,status=status.HTTP_401_UNAUTHORIZED)
+        else:
+            response_dict["Message"]="Success"
+            response_dict["Login_id"]=T_user.id
+            response_dict["UserType"]=T_user.UserType
+
+            return Response(response_dict,status=status.HTTP_200_OK)
+        

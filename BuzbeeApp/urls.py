@@ -78,4 +78,11 @@ urlpatterns = [
     path('ViewAssignedBus',ViewAssignedBus.as_view(),name="ViewAssignedBus"),
     path('AssignBus',AssignBus.as_view(),name="AssignBus"),
     path('DeleteAssignedBus/<int:lid>',DeleteAssignedBus.as_view(),name="DeleteAssignedBus"),
+    
+    
+    #//////////////////////passanger///////////
+    path('PassangerView',PassangerView.as_view(),name= "PassangerView"),
+    path('LoginPageAPI',LoginPageAPI.as_view(),name= "LoginPageAPI"),
+    
     ]
+

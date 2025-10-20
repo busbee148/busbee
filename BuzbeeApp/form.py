@@ -40,4 +40,4 @@ class Add_ConducterForm(ModelForm):
 class Assign_BusForm(ModelForm):
     class Meta:
         model = AssignTable
-        fields = ['BUS','DRIVER','Conducter']
+        fields = ['BUS','DRIVER','Conducter']   

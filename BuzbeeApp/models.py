@@ -8,13 +8,22 @@ class LoginTable(models.Model):
     UserType = models.CharField(max_length=30, blank=True, null=True)
 
 class PassangerTable(models.Model):
+    GENDER_CHOICES = [
+        ('M', 'Male'),
+        ('F', 'Female'),
+        ('O', 'Other'),
+    ]
+
     Name = models.CharField(max_length=30, blank=True, null=True)
-    Email = models.CharField(max_length=30,blank=True,null=True)
-    Age = models.IntegerField(blank=True,null=True)
-    Contact_NO = models.BigIntegerField(blank=True,null=True)
-    Gender = models.CharField(max_length=2,blank=True,null=True)
-    Address = models.CharField(max_length=50, blank=True, null=True)
+    Email = models.EmailField(max_length=100, blank=True, null=True)
+    Age = models.IntegerField(blank=True, null=True)
+    Contact_NO = models.BigIntegerField(blank=True, null=True)
+    Gender = models.CharField(max_length=1, choices=GENDER_CHOICES, blank=True, null=True)
+    Address = models.CharField(max_length=100, blank=True, null=True)
     LOGIN = models.ForeignKey(LoginTable, on_delete=models.CASCADE, null=True, blank=True)
+
+    def __str__(self):
+        return self.Name or "Unnamed Passenger"
 
 class OwnerTable(models.Model):
     Name = models.CharField(max_length=30,blank=True,null=True)

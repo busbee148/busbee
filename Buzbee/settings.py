@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-oys-d(9037-$9v=^(h%366ypkw%mdk3s=bn3q@=(jm2972z7g#
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'BuzbeeApp',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
