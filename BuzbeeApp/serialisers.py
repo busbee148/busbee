@@ -17,7 +17,7 @@ class PassangerSerializer(ModelSerializer):
 class BusSerializer(ModelSerializer):
     class Meta:
         model = BusTable
-        fields = ['Busname','Bus_NO','Capacity','RC_NO','Photo','Status']
+        fields = ['id','Busname','Bus_NO','Capacity','RC_NO','Photo','Status']
 
 class BusRouteSerializer(ModelSerializer):
     class Meta:

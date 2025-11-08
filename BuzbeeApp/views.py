@@ -491,3 +491,26 @@ class LoginPageAPI(APIView):
 
             return Response(response_dict,status=status.HTTP_200_OK)
         
+class ComplaintAPI(APIView):
+    def post(self,request,id):
+        user=PassangerTable.objects.get(LOGIN__id=id)
+        complaint=ComplaintSerializer(data=request.data)
+        if complaint.is_valid():
+            complaint.save(USER=user)
+            return Response(complaint.data, status=status.HTTP_200_OK)
+        
+class FeedbackAPI(APIView):
+    def post(self,request,id):
+        print(request.data)
+        user=PassangerTable.objects.get(LOGIN__id=id)
+        feedback=FeedbackSerializer(data=request.data)
+        if feedback.is_valid():
+            feedback.save(USER=user)
+            return Response(feedback.data, status=status.HTTP_200_OK)
+
+class ViewbusAPI(APIView):
+    def get(self,request):
+        bus=BusTable.objects.all()
+        serializer=BusSerializer(bus,many=True)
+        return Response(serializer.data,status=status.HTTP_200_OK)
+    
