@@ -492,6 +492,12 @@ class LoginPageAPI(APIView):
             return Response(response_dict,status=status.HTTP_200_OK)
         
 class ComplaintAPI(APIView):
+    def get(self,request,id):
+        c= ComplaintTable.objects.filter(USER__LOGIN__id=id)
+        serial=ComplaintSerializer(c,many=True)
+        return Response(serial.data, status=status.HTTP_200_OK)
+
+
     def post(self,request,id):
         user=PassangerTable.objects.get(LOGIN__id=id)
         complaint=ComplaintSerializer(data=request.data)
