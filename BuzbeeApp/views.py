@@ -115,7 +115,7 @@ class AddBusStop(View):
         obj = BusRouteTable.objects.all()
         return render(request,"administration/addbusstop.html",{'val':obj})
     def post(self,request):
-        s=Add_Busstop(request.POST)
+        s=Add_Busstop(request.POST, request.FILES)
         if s.is_valid():
             s.save()
         return redirect('ViewBusStop')  
@@ -518,5 +518,23 @@ class ViewbusAPI(APIView):
     def get(self,request):
         bus=BusTable.objects.all()
         serializer=BusSerializer(bus,many=True)
+        return Response(serializer.data,status=status.HTTP_200_OK)
+    
+class ViewbusStopAPI(APIView):
+    def get(self,request):
+        busstop=BusStopTable.objects.all()
+        serializer=BusStopSerializer(busstop,many=True)
+        return Response(serializer.data,status=status.HTTP_200_OK)
+    
+class ViewbusRouteAPI(APIView):
+    def get(self,request):
+        busroute=BusRouteTable.objects.all()
+        serializer=BusRouteSerializer(busroute,many=True)
+        return Response(serializer.data,status=status.HTTP_200_OK)
+    
+class ViewPassengerAPI(APIView):
+    def get(self,request,id):
+        passenger=PassangerTable.objects.get(LOGIN__id = id)
+        serializer=PassangerSerializer(passenger,many=True)
         return Response(serializer.data,status=status.HTTP_200_OK)
     

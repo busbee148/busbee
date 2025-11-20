@@ -86,6 +86,9 @@ urlpatterns = [
     path('ComplaintAPI/<int:id>',ComplaintAPI.as_view(),name= "ComplaintAPI"),
     path('FeedbackAPI/<int:id>',FeedbackAPI.as_view(),name= "FeedbackAPI"),
     path('ViewbusAPI',ViewbusAPI.as_view(),name= "ViewbusAPI"),
+    path('ViewbusStopAPI',ViewbusStopAPI.as_view(),name= "ViewbusStopAPI"),
+    path('ViewbusRouteAPI',ViewbusRouteAPI.as_view(),name= "ViewbusRouteAPI"),
+    path('ViewPassengerAPI/<int:id>',ViewPassengerAPI.as_view(),name= "ViewPassengerAPI"),
     
     ]
 
